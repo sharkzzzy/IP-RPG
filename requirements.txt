@@ -1,6 +1,12 @@
-A notable advancement is CM-UNet [4], which combines a CNN-based 
-encoder with a Mamba-based [5] decoder, employing a CSMamba block 
-with channel-spatial attention gating and a Multi-Scale Attention 
-Aggregation (MSAA) module for feature fusion.
+Remote sensing image segmentation is widely applied in urban planning, 
+environmental monitoring, and disaster assessment. Due to high 
+resolution, multi-scale objects, and complex backgrounds, capturing 
+long-range dependencies while maintaining efficiency remains a key 
+challenge.
 
-
+To address these challenges, recent research combines lightweight 
+state-space models with CNN-based architectures. Traditional U-Net [1] 
+architectures, whether based on CNNs [2] or Transformers [3], struggle 
+with large-scale scenes and suffer from high computational complexity. 
+Combining state-space models with CNNs leverages both efficiency and 
+the rich features from pretrained CNN models.
