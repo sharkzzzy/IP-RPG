@@ -1,28 +1,27 @@
-It undergoes channel recalibration through an Efficient Channel Attention (ECA) [7] module, which models cross-channel dependencies via a lightweight 1D convolution. This recalibration helps the subsequent PMC focus on informative channels. The recalibrated feature is enhanced via a residual connection before being fed into the PMC module.
+Config	SS2D-Attn	Detail Branch	ECA	PMC	APFG	MSK	MSAA	mIoU	FPS
+A (Baseline)	✓	✗	✗	✗	✗	✗	✓	52.84	53.86
+B	✗	✗	✗	✗	✗	✗	✓	47.30	69.37
+C	✗	✓	✓	✓	✗	✗	✓	51.16	46.35
+C1	✗	✓	✓	✓	✓	✗	✓	52.44	38.71
+D (Ours)	✗	✓	✓	✓	✓	✓	✗	53.21	60.62
+E	✗	✓	✗	✓	✓	✓	✗	47.72	62.38
+F	✗	✓	✓	✗	✓	✓	✗	46.08	68.69
 
-The PMC module is inspired by Learnable Deformable Convolution (LDC) [8], but operates in the parameter domain rather than the spatial domain. It aims to enhance the representational capacity of standard convolution through a dynamic inhibitory masking mechanism.
 
+This study successfully transitions from "attention stacking" to 
+fundamental "architecture rethinking." By proposing a dual-path 
+decoupled architecture that explicitly separates global and local 
+processing, we effectively overcome the computational redundancy 
+and performance bottlenecks of the baseline model. This strategic 
+decoupling, coupled with a streamlined attention mechanism, not 
+only significantly enhances inference efficiency but also achieves 
+superior segmentation accuracy on multiple remote sensing benchmarks, 
+delivering a more powerful and practical solution for remote sensing 
+image segmentation.
 
-"A natural question is why PMC is necessary rather than letting the network learn such patterns implicitly. Standard convolutions exhibit a center-dominance tendency, where center weights receive larger magnitudes after training. This is an architectural bias that data-driven optimization reinforces rather than corrects. PMC provides an explicit prior to counteract this. Intuitively, suppressing center weights forces the network to gather information from neighboring positions, enhancing sensitivity to edges and fine textures—precisely the local details this path aims to capture."
-
-"We adopt SiLU in SS2D following the original VMamba [5] design for architectural consistency, while using GeLU in APFG for its smoother gradient profile suited to fusing features from heterogeneous paths."
-
-
-The MSK module integrates multi-scale encoder features through an 
-efficient spatial-focused fusion process. As illustrated in Fig. 3, 
-it takes the channel-wise concatenation of encoder features (F_1, 
-F_2, F_3) as input. A 1×1 convolution first compresses the features 
-to C/4 channels. In this compressed space, three parallel convolutions 
-(3×3, 5×5, 7×7) extract multi-scale spatial patterns, and their 
-outputs are summed together. For spatial attention, average and max 
-pooling are applied along the channel axis, and their results are 
-concatenated and processed by a 7×7 convolution with sigmoid activation, 
-producing an attention map that modulates the fused features via 
-multiplication. A final 1×1 convolution restores the channel dimension.
-
-This design improves efficiency by operating in a compressed feature 
-space and using only spatial attention. A standard channel attention 
-module requires C'²/2 parameters, while the spatial attention here 
-uses only 98 parameters (a 7×7 conv with 2 input channels). When 
-C'=32, this reduces attention-related parameters from ~512 to 98, 
-achieving over 80% reduction compared to the baseline MSAA.
+While effective, the proposed approach has limitations. The current 
+experiments focus on optical remote sensing images with a limited 
+number of land-cover categories (5-7 classes); the performance on 
+multi-spectral or SAR imagery with more complex class distributions 
+remains to be validated. Future work will extend the evaluation to 
+a broader range of sensor types and application scenarios.
