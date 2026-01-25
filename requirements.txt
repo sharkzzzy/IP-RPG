@@ -6,3 +6,39 @@ RS3Mamba	https://github.com/sstary/SSRS	遥感语义分割
 VM-UNet	https://github.com/JCruan519/VM-UNet	基于VMamba的UNet
 Mamba-UNet	https://github.com/ziyangwang007/Mamba-UNet	纯Mamba架构UNet
 Swin-UMamba	https://github.com/JiarunLiu/Swin-UMamba	Swin+Mamba混合
+
+项目	配置
+GPU	NVIDIA RTX 3090
+框架	PyTorch
+训练配置
+项目	配置
+优化器	AdamW
+初始学习率	6e-4
+学习率调度	Cosine Annealing
+训练图像尺寸	512×512 (随机裁剪)
+数据增强
+增强方式	参数
+随机缩放	0.5-1.5
+随机翻转	✓
+随机旋转	✓
+亮度/对比度调整	limit=0.25, p=0.25
+归一化	✓
+测试配置
+项目	配置
+测试图像尺寸	1024×1024
+测试时增强	Test-time flipping
+数据集划分
+数据集	训练集	测试集
+ISPRS Potsdam	23张图像（排除710号）	14张图像
+ISPRS Vaihingen	12个blocks	4个blocks
+LoveDA	1,156张图像	677张图像
+评估指标
+指标	说明
+mIoU	Mean Intersection over Union
+mF1	Mean F1-score
+OA	Overall Accuracy
+模型配置
+项目	配置
+Backbone/Encoder	ResNet-18 (预训练)
+辅助损失权重	λ₁=0.4, λ₂=0.3, λ₃=0.2
+损失函数	Cross-entropy
