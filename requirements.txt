@@ -1,1 +1,2 @@
-L=L_{main}+\sum_{i}\lambda_i\cdot L_{aux,i}\left(cross-entropy,\lambda_i=0.4,0.3,0.2\right)
+L = L_{main} + \sum_{i=1}^{3}\lambda_i \cdot L_{aux}^{(i)}
+where all terms are cross-entropy losses and λ_i = 0.4, 0.3, 0.2.
