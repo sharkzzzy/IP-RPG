@@ -1,12 +1,8 @@
-Remote sensing image segmentation is widely applied in urban planning, 
-environmental monitoring, and disaster assessment. Due to high 
-resolution, multi-scale objects, and complex backgrounds, capturing 
-long-range dependencies while maintaining efficiency remains a key 
-challenge.
-
-To address these challenges, recent research combines lightweight 
-state-space models with CNN-based architectures. Traditional U-Net [1] 
-architectures, whether based on CNNs [2] or Transformers [3], struggle 
-with large-scale scenes and suffer from high computational complexity. 
-Combining state-space models with CNNs leverages both efficiency and 
-the rich features from pretrained CNN models.
+方法	GitHub	说明
+RS-Mamba	https://github.com/walking-shadow/Official_Remote_Sensing_Mamba	遥感专用，可能有相近配置
+RS3Mamba	https://github.com/sstary/SSRS	遥感语义分割
+优先级2：通用Mamba分割方法
+方法	GitHub	说明
+VM-UNet	https://github.com/JCruan519/VM-UNet	基于VMamba的UNet
+Mamba-UNet	https://github.com/ziyangwang007/Mamba-UNet	纯Mamba架构UNet
+Swin-UMamba	https://github.com/JiarunLiu/Swin-UMamba	Swin+Mamba混合
