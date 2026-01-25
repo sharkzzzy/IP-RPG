@@ -1,2 +1,9 @@
-L = L_{main} + \sum_{i=1}^{3}\lambda_i \cdot L_{aux}^{(i)}
-where all terms are cross-entropy losses and λ_i = 0.4, 0.3, 0.2.
+It undergoes channel recalibration through an Efficient Channel Attention (ECA) [7] module, which models cross-channel dependencies via a lightweight 1D convolution. This recalibration helps the subsequent PMC focus on informative channels. The recalibrated feature is enhanced via a residual connection before being fed into the PMC module.
+
+The PMC module is inspired by Learnable Deformable Convolution (LDC) [8], but operates in the parameter domain rather than the spatial domain. It aims to enhance the representational capacity of standard convolution through a dynamic inhibitory masking mechanism.
+
+
+"A natural question is why PMC is necessary rather than letting the network learn such patterns implicitly. Standard convolutions exhibit a center-dominance tendency, where center weights receive larger magnitudes after training. This is an architectural bias that data-driven optimization reinforces rather than corrects. PMC provides an explicit prior to counteract this. Intuitively, suppressing center weights forces the network to gather information from neighboring positions, enhancing sensitivity to edges and fine textures—precisely the local details this path aims to capture."
+
+"We adopt SiLU in SS2D following the original VMamba [5] design for architectural consistency, while using GeLU in APFG for its smoother gradient profile suited to fusing features from heterogeneous paths."
+
