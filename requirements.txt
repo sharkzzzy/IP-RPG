@@ -1,17 +1,19 @@
-The PMC module is inspired by Learnable Deformable Convolution (LDC) 
-[8], but operates in the parameter domain rather than the spatial 
-domain. This design choice is motivated by a key observation: 
-standard convolutions exhibit a center-dominance tendency, where 
-center weights consistently receive larger magnitudes after training. 
-This is an architectural bias that data-driven optimization reinforces 
-rather than corrects. By shifting the deformation from the spatial 
-to the parameter domain, PMC eliminates the complex coordinate offset 
-and interpolation computations required in traditional LDC, while 
-providing an explicit prior to counteract center-dominance. 
+The structure of the DVSS is shown in Fig. 1(c). The input feature 
+X ∈ ℝ^(B×H×W×C) is first normalized and processed by the SS2D module 
+to produce a shared foundational feature F_s. This feature serves 
+both paths: the global path retains F_s directly, while the local 
+detail path processes it as follows.
 
-The core mechanism works as follows: a dynamic mask, correlated 
-with the convolutional kernel weights, adaptively modulates the 
-convolution weights and suppresses the intensity at the kernel's 
-center. This suppression compels the network to gather information 
-from neighboring positions, enhancing sensitivity to edges and fine 
-textures—precisely the local details this path aims to capture.
+
+where B is a tensor of all ones, and ⊙ represents element-wise 
+multiplication. These modulated weights W_eff are applied to convolve 
+the feature (ECA(F_s) + F_s), producing the local path output F_l.
+
+
+Finally, the outputs of both paths are fused via the APFG module. 
+As shown in Fig. 2(b), APFG applies channel-wise attention to each 
+path independently: it performs global average pooling, followed 
+by a bottleneck structure (reduction and expansion via linear layers) 
+with sigmoid activation to generate attention weights. Each path's 
+feature is recalibrated by its own attention weights, and the results 
+are summed: Y = X + DropPath(APFG(F_g) + APFG(F_l)).
