@@ -7,3 +7,22 @@ The PMC module is inspired by Learnable Deformable Convolution (LDC) [8], but op
 
 "We adopt SiLU in SS2D following the original VMamba [5] design for architectural consistency, while using GeLU in APFG for its smoother gradient profile suited to fusing features from heterogeneous paths."
 
+
+The MSK module integrates multi-scale encoder features through an 
+efficient spatial-focused fusion process. As illustrated in Fig. 3, 
+it takes the channel-wise concatenation of encoder features (F_1, 
+F_2, F_3) as input. A 1×1 convolution first compresses the features 
+to C/4 channels. In this compressed space, three parallel convolutions 
+(3×3, 5×5, 7×7) extract multi-scale spatial patterns, and their 
+outputs are summed together. For spatial attention, average and max 
+pooling are applied along the channel axis, and their results are 
+concatenated and processed by a 7×7 convolution with sigmoid activation, 
+producing an attention map that modulates the fused features via 
+multiplication. A final 1×1 convolution restores the channel dimension.
+
+This design improves efficiency by operating in a compressed feature 
+space and using only spatial attention. A standard channel attention 
+module requires C'²/2 parameters, while the spatial attention here 
+uses only 98 parameters (a 7×7 conv with 2 input channels). When 
+C'=32, this reduces attention-related parameters from ~512 to 98, 
+achieving over 80% reduction compared to the baseline MSAA.
