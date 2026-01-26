@@ -1,44 +1,4 @@
-方法	GitHub	说明
-RS-Mamba	https://github.com/walking-shadow/Official_Remote_Sensing_Mamba	遥感专用，可能有相近配置
-RS3Mamba	https://github.com/sstary/SSRS	遥感语义分割
-优先级2：通用Mamba分割方法
-方法	GitHub	说明
-VM-UNet	https://github.com/JCruan519/VM-UNet	基于VMamba的UNet
-Mamba-UNet	https://github.com/ziyangwang007/Mamba-UNet	纯Mamba架构UNet
-Swin-UMamba	https://github.com/JiarunLiu/Swin-UMamba	Swin+Mamba混合
+The MSK module integrates multi-scale encoder features through an efficient spatial-focused fusion process. As illustrated in Fig. 3, it takes the channel-wise concatenation of encoder features (F₁, F₂, F₃) as input. A 1×1 convolution first compresses the features to C/4 channels. In this compressed space, three standard convolutions (3×3, 5×5, 7×7) are applied in parallel to extract multi-scale spatial patterns, and their outputs are summed together. Although these are regular convolutions, the overall cost remains low because all operations are performed on the compressed feature map with only C/4 channels. For spatial attention, average and max pooling are applied along the channel axis, and their results are concatenated and processed by a 7×7 convolution with sigmoid activation, producing an attention map that modulates the fused features via multiplication. A final 1×1 convolution restores the channel dimension.
 
-项目	配置
-GPU	NVIDIA RTX 3090
-框架	PyTorch
-训练配置
-项目	配置
-优化器	AdamW
-初始学习率	6e-4
-学习率调度	Cosine Annealing
-训练图像尺寸	512×512 (随机裁剪)
-数据增强
-增强方式	参数
-随机缩放	0.5-1.5
-随机翻转	✓
-随机旋转	✓
-亮度/对比度调整	limit=0.25, p=0.25
-归一化	✓
-测试配置
-项目	配置
-测试图像尺寸	1024×1024
-测试时增强	Test-time flipping
-数据集划分
-数据集	训练集	测试集
-ISPRS Potsdam	23张图像（排除710号）	14张图像
-ISPRS Vaihingen	12个blocks	4个blocks
-LoveDA	1,156张图像	677张图像
-评估指标
-指标	说明
-mIoU	Mean Intersection over Union
-mF1	Mean F1-score
-OA	Overall Accuracy
-模型配置
-项目	配置
-Backbone/Encoder	ResNet-18 (预训练)
-辅助损失权重	λ₁=0.4, λ₂=0.3, λ₃=0.2
-损失函数	Cross-entropy
+This design improves efficiency compared to the baseline MSAA by operating in a compressed feature space and using only spatial attention. A standard channel attention module requires C'²/2 parameters, while the spatial attention here uses only 98 parameters (a 7×7 conv with 2 input channels). When C'=32, this reduces attention-related parameters from 512 to 98, achieving over 80% reduction.
+
