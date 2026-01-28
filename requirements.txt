@@ -89,3 +89,7 @@ cd ./selective_scan
 
 # 4. 重新编译安装
 pip install .
+
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ find . -name "selective_scan" -type d
+./GeoSeg/Mamba-UNet/mamba/build/temp.linux-x86_64-cpython-310/csrc/selective_scan
+./GeoSeg/Mamba-UNet/mamba/csrc/selective_scan
