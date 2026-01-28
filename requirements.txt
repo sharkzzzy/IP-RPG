@@ -93,3 +93,10 @@ pip install .
 (DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ find . -name "selective_scan" -type d
 ./GeoSeg/Mamba-UNet/mamba/build/temp.linux-x86_64-cpython-310/csrc/selective_scan
 ./GeoSeg/Mamba-UNet/mamba/csrc/selective_scan
+cd /home/linux/Desktop/DP-UNet-main/GeoSeg/Mamba-UNet/mamba
+
+# 2. 查看是否有 setup.py
+ls -la
+
+# 3. 重新编译安装
+pip install .
