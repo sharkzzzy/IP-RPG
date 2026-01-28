@@ -100,3 +100,149 @@ ls -la
 
 # 3. 重新编译安装
 pip install .
+
+  | Name | Type           | Params | Mode  | FLOPs
+--------------------------------------------------------
+0 | net  | UNetMamba      | 14.8 M | train | 0    
+1 | loss | UnetFormerLoss | 0      | train | 0    
+--------------------------------------------------------
+14.8 M    Trainable params
+0         Non-trainable params
+14.8 M    Total params
+59.024    Total estimated model params size (MB)
+343       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+=> merge config from /home/linux/Desktop/DP-UNet-main/config/vaihingen/vmamba_tiny.yaml
+Total trainable parameters: 14755946 (14.76M)
+Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 200, in <module>
+    main()
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 196, in main
+    trainer.fit(model=model, ckpt_path=config.resume_ckpt_path)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+    call._call_and_handle_interrupt(
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 49, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+    results = self._run_stage()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1121, in _run_stage
+    self._run_sanity_check()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1150, in _run_sanity_check
+    val_loop.run()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 146, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 441, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 111, in validation_step
+    prediction = self.forward(img)
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 46, in forward
+    seg_pre = self.net(x)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/UNetMamba.py", line 308, in forward
+    x = self.decoder(outputs, h, w)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/UNetMamba.py", line 264, in forward
+    x = self.stages[s](x).permute(0, 3, 1, 2)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/UNetMamba.py", line 147, in forward
+    x = blk(x)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 1360, in forward
+    return self._forward(input)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 1348, in _forward
+    x = input + self.drop_path(self.op(self.norm(input)))
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 1147, in forwardv2
+    y = self.forward_core(x)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 1124, in forward_corev2
+    return cross_selective_scan(
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 406, in cross_selective_scan
+    ys: torch.Tensor = selective_scan(
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 372, in selective_scan
+    return SelectiveScan.apply(u, delta, A, B, C, D, delta_bias, delta_softplus, nrows, backnrows, ssoflex)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 465, in decorate_fwd
+    return fwd(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py", line 278, in forward
+    out, x, *rest = selective_scan_cuda_core.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1)
+NameError: name 'selective_scan_cuda_core' is not defined. Did you mean: 'selective_scan_cuda'?
+                                                                   (DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ head -100 /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py | grep -n "import\head -100 /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py | grep -n "import\|selective_scan"
+1:import os
+2:import time
+3:import math
+4:import copy
+5:from functools import partial
+6:from typing import Optional, Callable, Any
+7:from collections import OrderedDict
+9:import torch
+10:import torch.nn as nn
+11:import torch.nn.functional as F
+12:import torch.utils.checkpoint as checkpoint
+13:from einops import rearrange, repeat
+14:from timm.models.layers import DropPath, trunc_normal_
+15:from fvcore.nn import FlopCountAnalysis, flop_count_str, flop_count, parameter_count
+20:    from .csm_triton import CrossScanTriton, CrossMergeTriton, CrossScanTriton1b1
+22:    from csm_triton import CrossScanTriton, CrossMergeTriton, CrossScanTriton1b1
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ grep -n "selective_scan" /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py
+136:    import selective_scan_cuda_oflex
+139:    # print(f"WARNING: can not import selective_scan_cuda_oflex.", flush=True)
+143:    import selective_scan_cuda_core
+146:    # print(f"WARNING: can not import selective_scan_cuda_core.", flush=True)
+150:    import selective_scan_cuda
+153:    # print(f"WARNING: can not import selective_scan_cuda.", flush=True)
+165:def flops_selective_scan_fn(B=1, L=256, D=768, N=16, with_D=True, with_Z=False, with_complex=False):
+188:# this is only for selective_scan_ref...
+189:def flops_selective_scan_ref(B=1, L=256, D=768, N=16, with_D=True, with_Z=False, with_Group=True, with_complex=False):
+249:# comment all checks if inside cross_selective_scan
+255:        out, x, *rest = selective_scan_cuda.fwd(u, delta, A, B, C, D, None, delta_bias, delta_softplus)
+266:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda.bwd(
+278:        out, x, *rest = selective_scan_cuda_core.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1)
+288:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda_core.bwd(
+299:        out, x, *rest = selective_scan_cuda_oflex.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1, oflex)
+309:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda_oflex.bwd(
+318:def cross_selective_scan(
+371:    def selective_scan(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=True):
+406:    ys: torch.Tensor = selective_scan(
+430:def selective_scan_flop_jit(inputs, outputs):
+434:    flops = flops_selective_scan_fn(B=B, L=L, D=D, N=N, with_D=True, with_Z=False)
+1051:        def selective_scan(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=True, nrows=1):
+1086:                yi = selective_scan(
+1095:            out_y = selective_scan(
+1115:    def forward_corev2(self, x: torch.Tensor, cross_selective_scan=cross_selective_scan, **kwargs):
+1124:        return cross_selective_scan(
+1172:        def selective_scan(u, delta, A, B, C, D, delta_bias, delta_softplus):
+1250:        ys: torch.Tensor = selective_scan(
+1612:            "prim::PythonOp.SelectiveScanMamba": selective_scan_flop_jit,
+1613:            "prim::PythonOp.SelectiveScanOflex": selective_scan_flop_jit,
+1614:            "prim::PythonOp.SelectiveScanCore": selective_scan_flop_jit,
+1615:            "prim::PythonOp.SelectiveScanNRow": selective_scan_flop_jit,
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ cd /home/linux/Desktop/DP-UNet-main
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ find . -name "selective_scan" -type d
+./GeoSeg/Mamba-UNet/mamba/build/temp.linux-x86_64-cpython-310/csrc/selective_scan
+./GeoSeg/Mamba-UNet/mamba/csrc/selective_scan
+
