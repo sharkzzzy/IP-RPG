@@ -74,3 +74,18 @@ grep -n "selective_scan" /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classifi
 1614:            "prim::PythonOp.SelectiveScanCore": selective_scan_flop_jit,
 1615:            "prim::PythonOp.SelectiveScanNRow": selective_scan_flop_jit,
 
+
+
+# 1. 进入 VMamba 的 selective_scan 目录
+cd /home/linux/Desktop/DP-UNet-main
+
+# 2. 查找 selective_scan 的位置
+find . -name "selective_scan" -type d
+
+# 3. 进入找到的目录（通常类似这样的路径）
+cd ./kernels/selective_scan
+# 或者
+cd ./selective_scan
+
+# 4. 重新编译安装
+pip install .
