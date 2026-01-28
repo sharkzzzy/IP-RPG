@@ -1,26 +1,49 @@
-## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs - ICML 2024
-<a href="https://trendshift.io/repositories/7230" target="_blank"><img src="https://trendshift.io/api/badge/repositories/7230" alt="YangLing0818%2FRPG-DiffusionMaster | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-This repository contains the official implementation of our [RPG](https://openreview.net/forum?id=DgLFkAPwuZ), accepted by ICML 2024.
+ def backward(ctx, dout, *args):
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/timm/models/registry.py:4: FutureWarning: Importing from timm.models.registry is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+Traceback (most recent call last):
+=> merge config from /home/linux/Desktop/DP-UNet-main/config/vaihingen/vmamba_tiny.yaml
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 200, in <module>
+    main()
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 174, in main
+    config = py2cfg(args.config_path)
+  File "/home/linux/Desktop/DP-UNet-main/tools/cfg.py", line 67, in py2cfg
+    cfg_dict = py2dict(file_path)
+  File "/home/linux/Desktop/DP-UNet-main/tools/cfg.py", line 59, in py2dict
+    mod = import_module(module_name)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/linux/Desktop/DP-UNet-main/config/vaihingen/mambaunet.py", line 75, in <module>
+    net = UNetMamba(
+TypeError: UNetMamba.__init__() missing 1 required positional argument: 'pretrained'
 
-> [**Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs**](https://openreview.net/forum?id=DgLFkAPwuZ)   
-> [Ling Yang](https://yangling0818.github.io/), 
-> [Zhaochen Yu](https://github.com/BitCodingWalkin), 
-> [Chenlin Meng](https://cs.stanford.edu/~chenlin/),
-> [Minkai Xu](https://minkaixu.com/),
-> [Stefano Ermon](https://cs.stanford.edu/~ermon/), 
-> [Bin Cui](https://cuibinpku.github.io/) 
-> <br>**Peking University, Stanford University, Pika Labs**<br>
-
-## Introduction
 
 
-<table class="center">
-    <tr>
-    <td width=100% style="border: none"><img src="__asset__/method.png" style="width:100%"></td>
-    </tr>
-    <tr>
-    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">Overview of our RPG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </td>
   </tr>
 </table>
@@ -478,3 +501,4 @@ python RPG.py
 # Acknowledgements
 Our RPG is a general MLLM-controlled text-to-image generation/editing framework, which is builded upon several solid works. Thanks to [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui), [regional-prompter](https://github.com/hako-mikan/sd-webui-regional-prompter), [SAM](https://github.com/facebookresearch/segment-anything), [diffusers](https://github.com/huggingface/diffusers)
 and [IA](https://github.com/geekyutao/Inpaint-Anything) for their wonderful work and codebase! We also thank Hugging Face for sharing our [paper](https://huggingface.co/papers/2401.11708). 
+
