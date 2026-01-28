@@ -1027,4 +1027,80 @@ def main():
 
 if __name__ == "__main__":
    main()
+val: {'mIoU': np.float64(0.04903625419123113), 'F1': np.float64(0.0942043117393754), 'OA': np.float64(0.24035147607324145)}
+{'background': np.float64(0.0011351797573854532), 'building': np.float64(0.0003134133173133573), 'road': np.float64(0.06964601646560076), 'water': np.float64(0.0), 'barren': np.float64(0.004538710128489971), 'forest': np.float64(0.0011060856144562818), 'agricultural': np.float64(0.2665143740553721)}
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py:534: Found 479 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 0:   0%|          | 0/315 [00:00<?, ?it/s]====== DEBUG SHAPE ======
+img shape: torch.Size([8, 3, 512, 512])
+mask shape: torch.Size([8, 512, 512])
+prediction shape: torch.Size([8, 7, 512, 512])
+=========================
+pre_mask shape: torch.Size([7, 512])
+Traceback (most recent call last):
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 233, in <module>
+    main()
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 229, in main
+    trainer.fit(model=model, ckpt_path=config.resume_ckpt_path)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+    call._call_and_handle_interrupt(
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 49, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+    results = self._run_stage()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1123, in _run_stage
+    self.fit_loop.run()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 217, in run
+    self.advance()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 465, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 153, in run
+    self.advance(data_fetcher)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 352, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 177, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1368, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 137, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/catalyst/contrib/nn/optimizers/lookahead.py", line 61, in step
+    loss = self.optimizer.step(closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/optimizer.py", line 487, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/adamw.py", line 197, in step
+    loss = closure()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 391, in training_step
+    return self.lightning_module.training_step(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 83, in training_step
+    self.metrics_train.add_batch(
+  File "/home/linux/Desktop/DP-UNet-main/tools/metric.py", line 67, in add_batch
+    assert gt_image.shape == pre_image.shape, 'pre_image shape {}, gt_image shape {}'.format(pre_image.shape,
+AssertionError: pre_image shape (512,), gt_image shape (512, 512)
+Epoch 0:   0%|          | 0/315 [00:02<?, ?it/s]
 
