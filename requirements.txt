@@ -156,3 +156,402 @@ File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightni
     if prediction.dim() == 3:  
 AttributeError: 'tuple' object has no attribute 'dim'
 Epoch 0:   0%|          | 0/93 [00:02<?, ?it/s](
+
+
+
+
+
+
+from torch.utils.data import DataLoader
+from GeoSeg.losses import *
+from GeoSeg.datasets.vaihingen_dataset import *
+from GeoSeg.models.UNetMamba import UNetMamba  # 原论文的模型
+from catalyst.contrib.nn import Lookahead
+from catalyst import utils
+import copy
+import math
+import torch
+
+# ============ 训练超参数（用你的配置） ============
+max_epoch = 110
+ignore_index = len(CLASSES)
+train_batch_size = 8
+val_batch_size = 8
+lr = 6e-4
+weight_decay = 0.01
+backbone_lr = 6e-4
+backbone_weight_decay = 0.01
+num_classes = len(CLASSES)
+classes = CLASSES
+image_size = 512  # 或者你需要的大小
+crop_size = 512
+
+# ============ 路径配置 ============
+weights_name = "unetmamba-myconfig"
+weights_path = "model_weights/vaihingen/{}".format(weights_name)
+test_weights_name = weights_name
+log_name = 'vaihingen/{}'.format(weights_name)
+monitor = 'val_mIoU'
+monitor_mode = 'max'
+save_top_k = 1
+save_last = True
+check_val_every_n_epoch = 1
+pretrained_ckpt_path = None  # 预训练权重路径，None表示从头训练
+gpus = 'auto'
+resume_ckpt_path = None
+
+# ============ VSSM 参数（原论文的参数） ============
+PATCH_SIZE = 4
+IN_CHANS = 3
+DEPTHS = [2, 2, 9, 2]
+EMBED_DIM = 96
+SSM_D_STATE = 16
+SSM_RATIO = 2.0
+SSM_RANK_RATIO = 2.0
+SSM_DT_RANK = "auto"
+SSM_ACT_LAYER = "silu"
+SSM_CONV = 3
+SSM_CONV_BIAS = True
+SSM_DROP_RATE = 0.0
+SSM_INIT = "v0"
+SSM_FORWARDTYPE = "v4"
+MLP_RATIO = 4.0
+MLP_ACT_LAYER = "gelu"
+MLP_DROP_RATE = 0.0
+DROP_PATH_RATE = 0.1
+PATCH_NORM = True
+NORM_LAYER = "ln"
+DOWNSAMPLE = "v2"
+PATCHEMBED = "v2"
+GMLP = False
+USE_CHECKPOINT = False
+
+# ============ 定义网络（原论文的 UNetMamba） ============
+net = UNetMamba(
+    pretrained=pretrained_ckpt_path,
+    num_classes=num_classes,
+    patch_size=PATCH_SIZE,
+    in_chans=IN_CHANS,
+    depths=DEPTHS,
+    dims=EMBED_DIM,
+    ssm_d_state=SSM_D_STATE,
+    ssm_ratio=SSM_RATIO,
+    ssm_rank_ratio=SSM_RANK_RATIO,
+    ssm_dt_rank=SSM_DT_RANK,
+    ssm_act_layer=SSM_ACT_LAYER,
+    ssm_conv=SSM_CONV,
+    ssm_conv_bias=SSM_CONV_BIAS,
+    ssm_drop_rate=SSM_DROP_RATE,
+    ssm_init=SSM_INIT,
+    forward_type=SSM_FORWARDTYPE,
+    mlp_ratio=MLP_RATIO,
+    mlp_act_layer=MLP_ACT_LAYER,
+    mlp_drop_rate=MLP_DROP_RATE,
+    drop_path_rate=DROP_PATH_RATE,
+    patch_norm=PATCH_NORM,
+    norm_layer=NORM_LAYER,
+    downsample_version=DOWNSAMPLE,
+    patchembed_version=PATCHEMBED,
+    gmlp=GMLP,
+    use_checkpoint=USE_CHECKPOINT
+)
+
+# ============ 定义损失函数（用你的配置） ============
+weight = 0.4
+loss = UnetFormerLoss(ignore_index=ignore_index, weight=weight)
+use_aux_loss = True
+
+# ============ 数据增强 ============
+def get_training_transform():
+    train_transform = [
+        albu.RandomRotate90(p=0.5),
+        albu.Normalize()
+    ]
+    return albu.Compose(train_transform)
+
+def train_aug(img, mask):
+    crop_aug = Compose([
+        RandomScale(scale_list=[0.5, 0.75, 1.0, 1.25, 1.5], mode='value'),
+        SmartCropV1(crop_size=crop_size, max_ratio=0.75, ignore_index=len(CLASSES), nopad=False)
+    ])
+    img, mask = crop_aug(img, mask)
+    img, mask = np.array(img), np.array(mask)
+    aug = get_training_transform()(image=img.copy(), mask=mask.copy())
+    img, mask = aug['image'], aug['mask']
+    return img, mask
+
+def get_val_transform():
+    val_transform = [
+        albu.Normalize()
+    ]
+    return albu.Compose(val_transform)
+
+def val_aug(img, mask):
+    img, mask = np.array(img), np.array(mask)
+    aug = get_val_transform()(image=img.copy(), mask=mask.copy())
+    img, mask = aug['image'], aug['mask']
+    return img, mask
+
+# ============ 数据集（用你的路径） ============
+train_dataset = VaihingenDataset(
+    data_root='data/vaihingen/train',  # 你的数据路径
+    mode='train',
+    mosaic_ratio=0.25,
+    transform=train_aug
+)
+
+val_dataset = VaihingenDataset(transform=val_aug)
+
+test_dataset = VaihingenDataset(
+    data_root='data/vaihingen/test',
+    transform=val_aug
+)
+
+# ============ 数据加载器 ============
+pin_memory = True
+train_loader = DataLoader(
+    dataset=train_dataset,
+    batch_size=train_batch_size,
+    num_workers=4,
+    pin_memory=pin_memory,
+    shuffle=True,
+    drop_last=True
+)
+
+val_loader = DataLoader(
+    dataset=val_dataset,
+    batch_size=val_batch_size,
+    num_workers=4,
+    shuffle=False,
+    pin_memory=pin_memory,
+    drop_last=False
+)
+
+# ============ 优化器（用你的配置） ============
+layerwise_params = {"backbone.*": dict(lr=backbone_lr, weight_decay=backbone_weight_decay)}
+net_params = utils.process_model_params(net, layerwise_params=layerwise_params)
+base_optimizer = torch.optim.AdamW(net_params, lr=lr, weight_decay=weight_decay)
+optimizer = Lookahead(base_optimizer)
+lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=15, T_mult=2)
+
+# ============ 打印模型参数 ============
+def print_model_parameters(model):
+    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"Total trainable parameters: {total_params} ({total_params/1e6:.2f}M)")
+
+print_model_parameters(net)
+
+
+
+
+import pytorch_lightning as pl
+from pytorch_lightning.callbacks import ModelCheckpoint
+from tools.cfg import py2cfg
+import os
+import torch
+from torch import nn
+import cv2
+import numpy as np
+import argparse
+from pathlib import Path
+from tools.metric import Evaluator
+from pytorch_lightning.loggers import CSVLogger
+import random
+
+
+def seed_everything(seed):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    arg = parser.add_argument
+    arg("-c", "--config_path", type=Path, help="Path to the config.", required=True)
+    return parser.parse_args()
+
+
+class Supervision_Train(pl.LightningModule):
+    def __init__(self, config):
+        super().__init__()
+        self.config = config
+        self.net = config.net
+        self.loss = config.loss
+        self.metrics_train = Evaluator(num_class=config.num_classes)
+        self.metrics_val = Evaluator(num_class=config.num_classes)
+
+    def forward(self, x):
+        seg_pre = self.net(x)
+        # ========== 新增：处理 tuple 返回值 ==========
+        if isinstance(seg_pre, tuple):
+            seg_pre = seg_pre[0]
+        return seg_pre
+
+    def training_step(self, batch, batch_idx):
+        img, mask = batch['img'], batch['gt_semantic_seg']
+        prediction = self.net(img)
+        
+        # ========== 新增：处理 tuple 返回值 ==========
+        if isinstance(prediction, tuple):
+            prediction = prediction[0]
+        
+        # 处理维度问题
+        if prediction.dim() == 3:
+            B, L, C = prediction.shape
+            H = W = int(L**0.5)
+            prediction = prediction.view(B, H, W, C).permute(0, 3, 1, 2)
+
+        mask = mask.squeeze(1).long()
+        
+        loss = self.loss(prediction, mask)
+        
+        pre_mask = prediction.argmax(dim=1)
+        assert pre_mask.shape == mask.shape, \
+            f"预测形状{pre_mask.shape} vs 标签{mask.shape}"
+
+        for i in range(mask.shape[0]):
+            self.metrics_train.add_batch(
+                mask[i].cpu().numpy(),
+                pre_mask[i].cpu().numpy().astype(np.uint8)
+            )
+        return {"loss": loss}
+
+    def on_train_epoch_end(self):
+        if 'vaihingen' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_train.F1()[:-1])
+        elif 'potsdam' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_train.F1()[:-1])
+        elif 'whubuilding' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_train.F1()[:-1])
+        elif 'massbuilding' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_train.F1()[:-1])
+        elif 'cropland' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_train.F1()[:-1])
+        else:
+            mIoU = np.nanmean(self.metrics_train.Intersection_over_Union())
+            F1 = np.nanmean(self.metrics_train.F1())
+
+        OA = np.nanmean(self.metrics_train.OA())
+        iou_per_class = self.metrics_train.Intersection_over_Union()
+        eval_value = {'mIoU': mIoU,
+                      'F1': F1,
+                      'OA': OA}
+        print('train:', eval_value)
+
+        iou_value = {}
+        for class_name, iou in zip(self.config.classes, iou_per_class):
+            iou_value[class_name] = iou
+        print(iou_value)
+        self.metrics_train.reset()
+        log_dict = {'train_mIoU': mIoU, 'train_F1': F1, 'train_OA': OA}
+        self.log_dict(log_dict, prog_bar=True)
+
+    def validation_step(self, batch, batch_idx):
+        img, mask = batch['img'], batch['gt_semantic_seg']
+        prediction = self.forward(img)  # forward 已经处理了 tuple
+        
+        # ========== 新增：再次确保不是 tuple ==========
+        if isinstance(prediction, tuple):
+            prediction = prediction[0]
+        
+        pre_mask = nn.Softmax(dim=1)(prediction)
+        pre_mask = pre_mask.argmax(dim=1)
+        
+        for i in range(mask.shape[0]):
+            self.metrics_val.add_batch(mask[i].cpu().numpy(), pre_mask[i].cpu().numpy())
+
+        loss_val = self.loss(prediction, mask)
+        return {"loss_val": loss_val}
+
+    def on_validation_epoch_end(self):
+        if 'vaihingen' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_val.F1()[:-1])
+        elif 'potsdam' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_val.F1()[:-1])
+        elif 'whubuilding' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_val.F1()[:-1])
+        elif 'massbuilding' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_val.F1()[:-1])
+        elif 'cropland' in self.config.log_name:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union()[:-1])
+            F1 = np.nanmean(self.metrics_val.F1()[:-1])
+        else:
+            mIoU = np.nanmean(self.metrics_val.Intersection_over_Union())
+            F1 = np.nanmean(self.metrics_val.F1())
+
+        OA = np.nanmean(self.metrics_val.OA())
+        iou_per_class = self.metrics_val.Intersection_over_Union()
+
+        eval_value = {'mIoU': mIoU,
+                      'F1': F1,
+                      'OA': OA}
+        print('val:', eval_value)
+        iou_value = {}
+        for class_name, iou in zip(self.config.classes, iou_per_class):
+            iou_value[class_name] = iou
+        print(iou_value)
+
+        self.metrics_val.reset()
+        log_dict = {'val_mIoU': mIoU, 'val_F1': F1, 'val_OA': OA}
+        self.log_dict(log_dict, prog_bar=True)
+
+    def configure_optimizers(self):
+        optimizer = self.config.optimizer
+        lr_scheduler = self.config.lr_scheduler
+        return [optimizer], [lr_scheduler]
+
+    def train_dataloader(self):
+        return self.config.train_loader
+
+    def val_dataloader(self):
+        return self.config.val_loader
+
+
+# training
+def main():
+    args = get_args()
+    config = py2cfg(args.config_path)
+    seed_everything(42)
+
+    checkpoint_callback = ModelCheckpoint(
+        save_top_k=config.save_top_k,
+        monitor=config.monitor,
+        save_last=config.save_last,
+        mode=config.monitor_mode,
+        dirpath=config.weights_path,
+        filename=config.weights_name
+    )
+    logger = CSVLogger('lightning_logs', name=config.log_name)
+
+    model = Supervision_Train(config)
+    if config.pretrained_ckpt_path:
+        model = Supervision_Train.load_from_checkpoint(config.pretrained_ckpt_path, config=config)
+
+    trainer = pl.Trainer(
+        devices=[0],
+        accelerator="gpu",
+        max_epochs=config.max_epoch,
+        check_val_every_n_epoch=config.check_val_every_n_epoch,
+        callbacks=[checkpoint_callback],
+        logger=logger,
+    )
+    trainer.fit(model=model, ckpt_path=config.resume_ckpt_path)
+
+
+if __name__ == "__main__":
+    main()
+
