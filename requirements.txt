@@ -40,4 +40,37 @@ NameError: name 'selective_scan_cuda_core' is not defined. Did you mean: 'select
 head -100 /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py | grep -n "import\|selective_scan"
 
 grep -n "selective_scan" /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py
+ linux@ubuntu-4356:~/Desktop/DP-UNet-main$ grep -n "selective_scan" /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py
+136:    import selective_scan_cuda_oflex
+139:    # print(f"WARNING: can not import selective_scan_cuda_oflex.", flush=True)
+143:    import selective_scan_cuda_core
+146:    # print(f"WARNING: can not import selective_scan_cuda_core.", flush=True)
+150:    import selective_scan_cuda
+153:    # print(f"WARNING: can not import selective_scan_cuda.", flush=True)
+165:def flops_selective_scan_fn(B=1, L=256, D=768, N=16, with_D=True, with_Z=False, with_complex=False):
+188:# this is only for selective_scan_ref...
+189:def flops_selective_scan_ref(B=1, L=256, D=768, N=16, with_D=True, with_Z=False, with_Group=True, with_complex=False):
+249:# comment all checks if inside cross_selective_scan
+255:        out, x, *rest = selective_scan_cuda.fwd(u, delta, A, B, C, D, None, delta_bias, delta_softplus)
+266:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda.bwd(
+278:        out, x, *rest = selective_scan_cuda_core.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1)
+288:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda_core.bwd(
+299:        out, x, *rest = selective_scan_cuda_oflex.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1, oflex)
+309:        du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda_oflex.bwd(
+318:def cross_selective_scan(
+371:    def selective_scan(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=True):
+406:    ys: torch.Tensor = selective_scan(
+430:def selective_scan_flop_jit(inputs, outputs):
+434:    flops = flops_selective_scan_fn(B=B, L=L, D=D, N=N, with_D=True, with_Z=False)
+1051:        def selective_scan(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=True, nrows=1):
+1086:                yi = selective_scan(
+1095:            out_y = selective_scan(
+1115:    def forward_corev2(self, x: torch.Tensor, cross_selective_scan=cross_selective_scan, **kwargs):
+1124:        return cross_selective_scan(
+1172:        def selective_scan(u, delta, A, B, C, D, delta_bias, delta_softplus):
+1250:        ys: torch.Tensor = selective_scan(
+1612:            "prim::PythonOp.SelectiveScanMamba": selective_scan_flop_jit,
+1613:            "prim::PythonOp.SelectiveScanOflex": selective_scan_flop_jit,
+1614:            "prim::PythonOp.SelectiveScanCore": selective_scan_flop_jit,
+1615:            "prim::PythonOp.SelectiveScanNRow": selective_scan_flop_jit,
 
