@@ -106,3 +106,53 @@ pip install .
 
 sed -i 's/selective_scan_cuda_core\.bwd/selective_scan_cuda.bwd/g' \
     /home/linux/Desktop/DP-UNet-main/GeoSeg/models/classification/models/vmamba.py
+File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 217, in run
+    self.advance()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 465, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 153, in run
+    self.advance(data_fetcher)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 352, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 177, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1368, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 137, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/catalyst/contrib/nn/optimizers/lookahead.py", line 61, in step
+    loss = self.optimizer.step(closure)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/optimizer.py", line 487, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/optim/adamw.py", line 197, in step
+    loss = closure()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 391, in training_step
+    return self.lightning_module.training_step(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/train_supervisionv2.py", line 53, in training_step
+    if prediction.dim() == 3:  
+AttributeError: 'tuple' object has no attribute 'dim'
+Epoch 0:   0%|          | 0/93 [00:02<?, ?it/s](
