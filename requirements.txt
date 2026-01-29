@@ -1,3 +1,47 @@
+python -c "
+from GeoSeg.datasets.loveda_dataset import *
+import numpy as np
+
+print('=== 数据集检查 ===')
+print('CLASSES:', CLASSES)
+print('类别数:', len(CLASSES))
+
+# 检查训练集
+train_ds = LoveDATrainDataset(data_root='data/LoveDA/Train')
+print(f'训练集样本数: {len(train_ds)}')
+
+# 检查一个样本
+sample = train_ds[0]
+img = sample['img']
+mask = sample['gt_semantic_seg']
+
+print(f'图像 shape: {img.shape}')
+print(f'图像 dtype: {img.dtype}')
+print(f'图像范围: [{img.min():.3f}, {img.max():.3f}]')
+print(f'标签 shape: {mask.shape}')
+print(f'标签 dtype: {mask.dtype}')
+print(f'标签唯一值: {np.unique(mask)}')
+
+# 统计各类别像素数
+for v in np.unique(mask):
+    count = (mask == v).sum()
+    print(f'  类别 {v}: {count} pixels ({count/mask.size*100:.2f}%)')
+"
+# 查看数据目录结构
+ls -la data/LoveDA/
+ls data/LoveDA/Train/ | head -5
+ls data/LoveDA/Val/ | head -5
+
+# 查看图像和标签数量
+echo "训练图像数量:"
+ls data/LoveDA/Train/images_png/ 2>/dev/null | wc -l || ls data/LoveDA/Train/Urban/images_png/ 2>/dev/null | wc -l
+
+echo "训练标签数量:"
+ls data/LoveDA/Train/masks_png/ 2>/dev/null | wc -l || ls data/LoveDA/Train/Urban/masks_png/ 2>/dev/null | wc -l
+
+
+
+
 
 from torch.utils.data import DataLoader
 from GeoSeg.losses import *
@@ -1894,6 +1938,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
