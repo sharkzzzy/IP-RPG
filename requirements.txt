@@ -1,3 +1,31 @@
+
+Use raw state_dict
+Skipping unmatched key: model
+Skipping unmatched key: optimizer
+Skipping unmatched key: lr_scheduler
+Skipping unmatched key: max_accuracy
+Skipping unmatched key: scaler
+Skipping unmatched key: epoch
+Skipping unmatched key: config
+Load pretrained weights done!
+img shape: torch.Size([2, 3, 512, 512])
+mask shape: torch.Size([2, 512, 512])
+mask dtype: torch.int64
+mask unique: tensor([0, 1, 2, 3, 4, 5], device='cuda:0')
+output shape: torch.Size([2, 7, 512, 512])
+output dtype: torch.float32
+==================================================
+测试 SoftCrossEntropyLoss...
+CE Loss: 1.9425456523895264
+==================================================
+测试 DiceLoss...
+Dice Loss: 0.7593587040901184
+==================================================
+测试 JointLoss...
+Joint Loss 错误: only integer tensors of a single element can be converted to an index
+
+
+
 python -c "
 import torch
 from GeoSeg.datasets.loveda_dataset import *
@@ -2298,6 +2326,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
