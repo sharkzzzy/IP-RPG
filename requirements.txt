@@ -1,3 +1,75 @@
+python -c "
+import torch
+import torch.nn as nn
+from GeoSeg.datasets.loveda_dataset import *
+from GeoSeg.models.RS3Mamba import RS3Mamba, load_pretrained_ckpt
+from GeoSeg.losses import UnetFormerLoss
+from torch.utils.data import DataLoader
+
+# 加载数据
+train_ds = LoveDATrainDataset(data_root='data/LoveDA/Train')
+train_loader = DataLoader(train_ds, batch_size=2, shuffle=True)
+
+# 加载模型
+num_classes = 7
+net = RS3Mamba(num_classes=num_classes)
+net = load_pretrained_ckpt(net, ckpt_path='/home/linux/Desktop/DP-UNet-main/vmamba_tiny_e292.pth')
+net = net.cuda()
+net.train()
+
+# 定义损失
+loss_fn = UnetFormerLoss(ignore_index=7)
+
+# 测试一个batch
+batch = next(iter(train_loader))
+img = batch['img'].cuda()
+mask = batch['gt_semantic_seg'].cuda()
+
+print('='*50)
+print('输入: img', img.shape, 'mask', mask.shape)
+print('mask unique:', torch.unique(mask).tolist())
+
+# 前向传播
+output = net(img)
+
+print('='*50)
+if isinstance(output, (list, tuple)):
+    print('output是list, 长度:', len(output))
+    for i, o in enumerate(output):
+        print(f'  output[{i}]: {o.shape}, range=[{o.min():.3f}, {o.max():.3f}]')
+    main_out = output[0]
+else:
+    print('output:', output.shape)
+    main_out = output
+
+# 预测分布
+pred = main_out.argmax(dim=1)
+print('='*50)
+print('pred unique:', torch.unique(pred).tolist())
+print('预测分布:')
+for v in range(7):
+    count = (pred == v).sum().item()
+    print(f'  类别{v}: {count/pred.numel()*100:.1f}%')
+
+# 损失
+loss = loss_fn(output, mask)
+print('='*50)
+print('Loss:', loss.item())
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 === 数据集检查 ===
 CLASSES: ('background', 'building', 'road', 'water', 'barren', 'forest', 'agricultural')
 类别数: 7
@@ -1981,6 +2053,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
