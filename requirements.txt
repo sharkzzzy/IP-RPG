@@ -1,3 +1,27 @@
+class UnetMambaLoss(nn.Module):
+
+    def __init__(self, ignore_index=6):
+        super().__init__()
+        self.main_loss = JointLoss(SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=ignore_index),
+                                   DiceLoss(smooth=0.05, ignore_index=ignore_index), (1.0, 1.0))
+        self.aux_loss = SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=ignore_index)
+
+    def forward(self, logits, labels):
+        # ✅ 修改判断条件：检查是否为 tuple/list
+        if self.training and isinstance(logits, (list, tuple)) and len(logits) == 2:
+            logit_main, logit_aux = logits
+            loss = self.main_loss(logit_main, labels) + 0.4 * self.aux_loss(logit_aux, labels)
+        else:
+            # 如果是 tuple/list 但只有一个元素，取第一个
+            if isinstance(logits, (list, tuple)):
+                logits = logits[0]
+            loss = self.main_loss(logits, labels)
+        return loss
+
+
+
+
+
 ==============================
 Traceback (most recent call last):
   File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 253, in <module>
@@ -2204,6 +2228,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
