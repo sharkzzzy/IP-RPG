@@ -1360,3 +1360,166 @@ def main():
 if __name__ == "__main__":
     main()
 
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ bash test_loveda.sh
+test_loveda.sh
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:159: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:228: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:296: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:369: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:441: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:521: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/triton/layernorm.py:509: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/mamba_ssm/ops/triton/layernorm.py:568: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/timm/models/_factory.py:138: UserWarning: Mapping deprecated model name swsl_resnet18 to current resnet18.fb_swsl_ig1b_ft_in1k.
+  model = create_fn(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/functional.py:534: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3595.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/home/linux/Desktop/DP-UNet-main/GeoSeg/models/RS3Mamba.py:577: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location='cpu')
+Unsupported operator aten::silu encountered 30 time(s)
+Unsupported operator aten::mul encountered 97 time(s)
+Unsupported operator aten::flip encountered 30 time(s)
+Unsupported operator aten::exp encountered 15 time(s)
+Unsupported operator aten::neg encountered 15 time(s)
+Unsupported operator prim::PythonOp.SelectiveScanFn encountered 15 time(s)
+Unsupported operator aten::add encountered 103 time(s)
+Unsupported operator aten::max_pool2d encountered 1 time(s)
+Unsupported operator aten::add_ encountered 15 time(s)
+Unsupported operator aten::mul_ encountered 35 time(s)
+Unsupported operator aten::softmax encountered 7 time(s)
+Unsupported operator aten::pad encountered 21 time(s)
+Unsupported operator aten::avg_pool2d encountered 14 time(s)
+Unsupported operator aten::hardtanh encountered 13 time(s)
+Unsupported operator aten::dropout_ encountered 14 time(s)
+Unsupported operator aten::sum encountered 3 time(s)
+Unsupported operator aten::div encountered 3 time(s)
+Unsupported operator aten::sigmoid encountered 2 time(s)
+Unsupported operator aten::feature_dropout_ encountered 1 time(s)
+The following submodules of the model were never called during the trace of the graph. They may be unused, or they were accessed by direct calls to .forward() or via other python methods. In the latter case they will have zeros for statistics, though their statistics will still contribute to their parent calling module.
+vssm_encoder.layers.0.blocks.0.drop_path, vssm_encoder.layers.0.blocks.1.drop_path, vssm_encoder.layers.1.blocks.0.drop_path, vssm_encoder.layers.1.blocks.1.drop_path, vssm_encoder.layers.2.blocks.0.drop_path, vssm_encoder.layers.2.blocks.1.drop_path, vssm_encoder.layers.2.blocks.2.drop_path, vssm_encoder.layers.2.blocks.3.drop_path, vssm_encoder.layers.2.blocks.4.drop_path, vssm_encoder.layers.2.blocks.5.drop_path, vssm_encoder.layers.2.blocks.6.drop_path, vssm_encoder.layers.2.blocks.7.drop_path, vssm_encoder.layers.2.blocks.8.drop_path, vssm_encoder.layers.3.blocks.0.drop_path, vssm_encoder.layers.3.blocks.1.drop_path
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/lightning_fabric/utilities/cloud_io.py:73: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+=> merge config from /home/linux/Desktop/DP-UNet-main/config/loveda/vmamba_tiny.yaml
+AMP_OPT_LEVEL: O1
+AUG:
+  AUTO_AUGMENT: rand-m9-mstd0.5-inc1
+  COLOR_JITTER: 0.4
+  CUTMIX: 1.0
+  CUTMIX_MINMAX: None
+  MIXUP: 0.8
+  MIXUP_MODE: batch
+  MIXUP_PROB: 1.0
+  MIXUP_SWITCH_PROB: 0.5
+  RECOUNT: 1
+  REMODE: pixel
+  REPROB: 0.25
+BASE: ['']
+DATA:
+  BATCH_SIZE: 24
+  CACHE_MODE: part
+  DATASET: imagenet
+  DATA_PATH: 
+  IMG_SIZE: 224
+  INTERPOLATION: bicubic
+  NUM_WORKERS: 8
+  PIN_MEMORY: True
+  ZIP_MODE: False
+EVAL_MODE: False
+LOCAL_RANK: 0
+MODEL:
+  DROP_PATH_RATE: 0.2
+  DROP_RATE: 0.0
+  LABEL_SMOOTHING: 0.1
+  NAME: vssm_tiny
+  NUM_CLASSES: 1000
+  PRETRAIN_CKPT: /home/linux/Desktop/DP-UNet-main/vmamba_tiny_e292.pth
+  RESUME: 
+  SWIN:
+    APE: False
+    DECODER_DEPTHS: [2, 2, 6, 2]
+    DEPTHS: [2, 2, 6, 2]
+    EMBED_DIM: 96
+    FINAL_UPSAMPLE: expand_first
+    IN_CHANS: 3
+    MLP_RATIO: 4.0
+    NUM_HEADS: [3, 6, 12, 24]
+    PATCH_NORM: True
+    PATCH_SIZE: 4
+    QKV_BIAS: True
+    QK_SCALE: None
+    WINDOW_SIZE: 7
+  TYPE: vssm
+  VSSM:
+    DEPTHS: [2, 2, 2, 2]
+    EMBED_DIM: 128
+OUTPUT: 
+PRINT_FREQ: 10
+SAVE_FREQ: 1
+SEED: 0
+TAG: default
+TEST:
+  CROP: True
+THROUGHPUT_MODE: False
+TRAIN:
+  ACCUMULATION_STEPS: 0
+  AUTO_RESUME: True
+  BASE_LR: 0.0005
+  CLIP_GRAD: 5.0
+  EPOCHS: 300
+  LR_SCHEDULER:
+    DECAY_EPOCHS: 30
+    DECAY_RATE: 0.1
+    NAME: cosine
+  MIN_LR: 5e-06
+  OPTIMIZER:
+    BETAS: (0.9, 0.999)
+    EPS: 1e-08
+    MOMENTUM: 0.9
+    NAME: adamw
+  START_EPOCH: 0
+  USE_CHECKPOINT: False
+  WARMUP_EPOCHS: 20
+  WARMUP_LR: 5e-07
+  WEIGHT_DECAY: 0.05
+Loading weights from: /home/linux/Desktop/DP-UNet-main/vmamba_tiny_e292.pth
+Use raw state_dict
+Skipping unmatched key: model
+Skipping unmatched key: optimizer
+Skipping unmatched key: lr_scheduler
+Skipping unmatched key: max_accuracy
+Skipping unmatched key: scaler
+Skipping unmatched key: epoch
+Skipping unmatched key: config
+Load pretrained weights done!
+Total trainable parameters: 43324958 (43.32M)
+FLOPs (G): 9.868476376
+Params (M): 323.735216
+average time: 0.03837894296646118
+average fps: 26.055954716467465
+fastest time: 0.03479361534118652
+fastest fps: 28.740905197519442
+slowest time: 0.14574694633483887
+slowest fps: 6.861207216668548
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 418/418 [30:46<00:00,  4.42s/it]
+F1_background:0.6243095351647958, IOU_background:0.45381541205897846
+F1_building:0.4971108945717761, IOU_building:0.3307701764396864
+F1_road:0.5522825270283175, IOU_road:0.38148501854762124
+F1_water:0.6646429562509254, IOU_water:0.49772677604254095
+F1_barren:0.11390862015391012, IOU_barren:0.06039400920394715
+F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
+F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
+F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
+images writing spends: 55.78136134147644 s
