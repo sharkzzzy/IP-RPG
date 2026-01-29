@@ -1,3 +1,86 @@
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/timm/models/_factory.py:138: UserWarning: Mapping deprecated model name swsl_resnet18 to current resnet18.fb_swsl_ig1b_ft_in1k.
+  model = create_fn(
+/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/functional.py:534: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3595.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Loading weights from: /home/linux/Desktop/DP-UNet-main/vmamba_tiny_e292.pth
+/home/linux/Desktop/DP-UNet-main/GeoSeg/models/RS3Mamba.py:577: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location='cpu')
+Use raw state_dict
+Skipping unmatched key: model
+Skipping unmatched key: optimizer
+Skipping unmatched key: lr_scheduler
+Skipping unmatched key: max_accuracy
+Skipping unmatched key: scaler
+Skipping unmatched key: epoch
+Skipping unmatched key: config
+Load pretrained weights done!
+==================================================
+输入: img torch.Size([2, 3, 512, 512]) mask torch.Size([2, 512, 512])
+mask unique: [0, 1, 2, 5]
+==================================================
+output: torch.Size([2, 7, 512, 512])
+==================================================
+pred unique: [0, 1, 2, 3, 4, 5, 6]
+预测分布:
+  类别0: 0.5%
+  类别1: 1.9%
+  类别2: 11.3%
+  类别3: 31.2%
+  类别4: 6.3%
+  类别5: 41.2%
+  类别6: 7.7%
+Traceback (most recent call last):
+  File "<string>", line 55, in <module>
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/useful_loss.py", line 91, in forward
+    loss = self.main_loss(logit_main, labels) + self.weight * self.aux_loss(logit_aux, labels)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/joint_loss.py", line 32, in forward
+    return self.first(*input) + self.second(*input)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/joint_loss.py", line 18, in forward
+    return self.loss(*input) * self.weight
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/soft_ce.py", line 26, in forward
+    return label_smoothed_nll_loss(
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/functional.py", line 260, in label_smoothed_nll_loss
+    smooth_loss = smooth_loss.masked_fill(pad_mask, 0.0)
+RuntimeError: The size of tensor a (2) must match the size of tensor b (7) at non-singleton dimension 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 python -c "
 import torch
 import torch.nn as nn
@@ -2053,6 +2136,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
