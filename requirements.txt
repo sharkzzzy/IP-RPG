@@ -1,3 +1,46 @@
+=== 数据集检查 ===
+CLASSES: ('background', 'building', 'road', 'water', 'barren', 'forest', 'agricultural')
+类别数: 7
+训练集样本数: 2522
+图像 shape: torch.Size([3, 512, 512])
+图像 dtype: torch.float32
+图像范围: [-1.005, 2.640]
+标签 shape: torch.Size([512, 512])
+标签 dtype: torch.int64
+标签唯一值: [0 1 2 3 4 5 6]
+Traceback (most recent call last):
+  File "<string>", line 28, in <module>
+TypeError: unsupported operand type(s) for /: 'Tensor' and 'builtin_function_or_method'
+(DP) linux@ubuntu-4356:~/Desktop/DP-UNet-main$ ls -la data/LoveDA/
+ls data/LoveDA/Train/ | head -5
+ls data/LoveDA/Val/ | head -5
+
+# 查看图像和标签数量
+echo "训练图像数量:"
+ls data/LoveDA/Train/images_png/ 2>/dev/null | wc -l || ls data/LoveDA/Train/Urban/images_png/ 2>/dev/null | wc -l
+
+echo "训练标签数量:"
+ls data/LoveDA/Train/masks_png/ 2>/dev/null | wc -l || ls data/LoveDA/Train/Urban/masks_png/ 2>/dev/null | wc -l
+
+total 24
+drwxrwxr-x 6 linux linux 4096  1月 28 00:55 .
+drwxrwxr-x 4 linux linux 4096  1月 28 00:50 ..
+drwxrwxr-x 4 linux linux 4096 10月 19  2021 Test
+drwxrwxr-x 4 linux linux 4096 10月 19  2021 Train
+drwxrwxr-x 4 linux linux 4096  1月 28 00:56 train_val
+drwxrwxr-x 4 linux linux 4096 10月 19  2021 Val
+Rural
+Urban
+Rural
+Urban
+训练图像数量:
+0
+训练标签数量:
+0
+
+
+
+
 python -c "
 from GeoSeg.datasets.loveda_dataset import *
 import numpy as np
@@ -1938,6 +1981,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
