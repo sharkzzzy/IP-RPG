@@ -1,3 +1,73 @@
+python -c "
+import torch
+from GeoSeg.datasets.loveda_dataset import *
+from GeoSeg.models.RS3Mamba import RS3Mamba, load_pretrained_ckpt
+from GeoSeg.losses import JointLoss, SoftCrossEntropyLoss, DiceLoss
+from torch.utils.data import DataLoader
+
+train_ds = LoveDATrainDataset(data_root='data/LoveDA/Train')
+batch = next(iter(DataLoader(train_ds, batch_size=2)))
+
+net = RS3Mamba(num_classes=7)
+net = load_pretrained_ckpt(net, ckpt_path='/home/linux/Desktop/DP-UNet-main/vmamba_tiny_e292.pth')
+net = net.cuda().eval()
+
+img = batch['img'].cuda()
+mask = batch['gt_semantic_seg'].cuda()
+
+print('img shape:', img.shape)
+print('mask shape:', mask.shape)
+print('mask dtype:', mask.dtype)
+print('mask unique:', torch.unique(mask))
+
+with torch.no_grad():
+    output = net(img)
+print('output shape:', output.shape)
+print('output dtype:', output.dtype)
+
+# 单独测试每个损失
+print('='*50)
+print('测试 SoftCrossEntropyLoss...')
+ce_loss = SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=7)
+try:
+    l1 = ce_loss(output, mask)
+    print('CE Loss:', l1.item())
+except Exception as e:
+    print('CE Loss 错误:', e)
+
+print('='*50)
+print('测试 DiceLoss...')
+dice_loss = DiceLoss(smooth=0.05, ignore_index=7)
+try:
+    l2 = dice_loss(output, mask)
+    print('Dice Loss:', l2.item())
+except Exception as e:
+    print('Dice Loss 错误:', e)
+
+print('='*50)
+print('测试 JointLoss...')
+joint_loss = JointLoss(
+    SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=7),
+    DiceLoss(smooth=0.05, ignore_index=7), 
+    (1.0, 1.0)
+)
+try:
+    l3 = joint_loss(output, mask)
+    print('Joint Loss:', l3.item())
+except Exception as e:
+    print('Joint Loss 错误:', e)
+"
+
+
+
+
+
+
+
+
+
+
+
 class UnetMambaLoss(nn.Module):
 
     def __init__(self, ignore_index=6):
@@ -2228,6 +2298,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
