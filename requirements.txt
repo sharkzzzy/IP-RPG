@@ -1,3 +1,11 @@
+
+python loveda_test.py \
+    -c config/loveda/rs3mamba.py \
+    -o ./output/loveda_test \
+    --val
+
+
+
 import ttach as tta
 import multiprocessing.pool as mpp
 import multiprocessing as mp
@@ -1682,4 +1690,5 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
