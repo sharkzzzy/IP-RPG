@@ -1,3 +1,71 @@
+==============================
+Traceback (most recent call last):
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 253, in <module>
+    main()
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 249, in main
+    trainer.fit(model=model, ckpt_path=config.resume_ckpt_path)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+    call._call_and_handle_interrupt(
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 49, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+    results = self._run_stage()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1121, in _run_stage
+    self._run_sanity_check()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1150, in _run_sanity_check
+    val_loop.run()
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 146, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 441, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/train_supervision.py", line 167, in validation_step
+    loss_val = self.loss(prediction, mask)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/useful_loss.py", line 111, in forward
+    loss = self.main_loss(logits, labels)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/joint_loss.py", line 32, in forward
+    return self.first(*input) + self.second(*input)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/linux/Desktop/DP-UNet-main/GeoSeg/losses/joint_loss.py", line 18, in forward
+    return self.loss(*input) * self.weight
+TypeError: only integer tensors of a single element can be converted to an index
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
   _torch_pytree._register_pytree_node(
 /home/linux/anaconda3/envs/DP/lib/python3.10/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
@@ -2136,6 +2204,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
