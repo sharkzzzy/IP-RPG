@@ -1,4 +1,20 @@
+class RS3MambaLoss(nn.Module):
+    def __init__(self, ignore_index=7):
+        super().__init__()
+        self.ce_loss = SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=ignore_index)
+        self.dice_loss = DiceLoss(smooth=0.05, ignore_index=ignore_index)
+    
+    def forward(self, pred, target):
+        # 处理多输出情况
+        if isinstance(pred, (list, tuple)):
+            pred = pred[0]
+        
+        ce = self.ce_loss(pred, target)
+        dice = self.dice_loss(pred, target)
+        return ce + dice
 
+# 使用新的损失函数
+loss = RS3MambaLoss(ignore_index=ignore_index)
 Use raw state_dict
 Skipping unmatched key: model
 Skipping unmatched key: optimizer
@@ -2326,6 +2342,7 @@ F1_forest:0.5200206300105628, IOU_forest:0.3513701883657164
 F1_agricultural:0.597284380342883, IOU_agricultural:0.42580575276468696
 F1:0.5099370776461672, mIOU:0.3573381904890254, OA:0.5837804981033137
 images writing spends: 55.78136134147644 s
+
 
 
 
