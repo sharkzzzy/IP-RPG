@@ -1,1 +1,35 @@
-DP-UNet achieved state-of-the-art performance among the compared methods across all benchmarks. On ISPRS Potsdam (86.71% mIoU), it excelled in boundary-sensitive categories like “Lowveg” and “Building”, yielding clearer contours (Fig. 4). On ISPRS Vaihingen (83.84% mIoU), it showed strong performance on small objects like “Cars” (Fig. 5), benefiting from the dedicated local-detail enhancement path (including PMC). On LoveDA (53.21% mIoU), it improved structured categories like “Building” and “Road” (Fig. 6), highlighting effective global–local collaboration.
+1. Introduction 第二段 ✅ 安全
+原文：
+
+"To address these challenges, recent research combines lightweight state-space models with CNN-based architectures. Traditional U-Net [1] architectures, whether based on CNNs [2] or Transformers [3], struggle with large-scale scenes and suffer from high computational complexity. Combining state-space models with CNNs leverages both efficiency and the rich features from pretrained CNN models. A notable advancement is CM-UNet [4], which combines a CNN-based encoder with a Mamba-based [5] decoder, employing a CSMamba block with channel-spatial attention gating and a Multi-Scale Attention Aggregation (MSAA) module for feature fusion."
+
+精简版：
+
+"To address these challenges, recent research combines lightweight state-space models with CNNs. Traditional U-Net [1] architectures, whether CNN-based [2] or Transformer-based [3], struggle with large-scale scenes and high complexity. A notable advancement is CM-UNet [4], which combines a CNN encoder with a Mamba-based [5] decoder, employing a CSMamba block with channel-spatial attention gating and an MSAA module for feature fusion."
+
+节省：~2行
+
+2. Introduction 第三段（CM-UNet问题描述）⚠️ 谨慎
+原文：
+
+"Despite its strong performance across various tasks, CM-UNet still exhibits certain limitations. First, its coupled architecture presents a bottleneck. The CSMamba module processes both global context modeling and local detail refinement within a single sequential pathway. We argue that these are two fundamentally distinct tasks requiring specialized processing. Forcing them to share parameters and computational flow limits the model's capacity to excel at either task optimally. Second, it suffers from attention redundancy. The MSAA module at the feature fusion stage already incorporates both channel and spatial attention. The subsequent reapplication of the same channel and spatial attention mechanisms within the SS2D module. Although this multi-level homogeneous attention design enhances feature focusing to some extent, it inevitably increases model complexity and computational overhead."
+
+精简版：
+
+"Despite strong performance, CM-UNet exhibits certain limitations. First, its coupled architecture presents a bottleneck: the CSMamba module processes both global context modeling and local detail refinement in a single pathway, limiting optimal performance for either task. Second, it suffers from attention redundancy: the MSAA module already incorporates channel and spatial attention, and the SS2D module reapplies similar mechanisms, increasing complexity and computational overhead."
+
+节省：~3行
+
+3. Conclusion 第一段 ✅ 安全
+原文：
+
+"This study successfully transitions from "attention stacking" to fundamental "architecture rethinking." By proposing a dual-path decoupled architecture that explicitly separates global and local processing, we effectively overcome the computational redundancy and performance bottlenecks of the baseline model. This strategic decoupling, coupled with a streamlined attention mechanism, not only significantly enhances inference efficiency but also achieves superior segmentation accuracy on multiple remote sensing benchmarks, delivering a more powerful and practical solution for remote sensing image segmentation."
+
+精简版：
+
+"This study transitions from "attention stacking" to "architecture rethinking." By proposing a dual-path decoupled architecture that explicitly separates global and local processing, we overcome the computational redundancy and performance bottlenecks of the baseline model. This strategic decoupling, coupled with streamlined attention, enhances both inference efficiency and segmentation accuracy on multiple remote sensing benchmarks."
+
+节省：~2行
+
+4. Abstract ⚠️ 最后考虑
+如果仍不够，可微调Abstract，但优先级最低。
