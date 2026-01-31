@@ -1,3 +1,5 @@
+{F'_3, F'_2, F'_1}
+
 修正后的安全精简方案
 1. II-A 开头合并（安全）✅
 原文（两段）：
@@ -87,4 +89,5 @@ eff
 
 5. PMC 解释（微调版，保留R1-2核心）
 "This occurs because the kernel center corresponds to well-aligned sampling positions and is reinforced by overlapping receptive fields, leading to more stable gradients and larger updates. Although a network could in principle learn non-center-dominant kernels, standard training does not encourage this; optimization thus converges to center-reliant solutions that are suboptimal for fine-detail extraction."
+
 
