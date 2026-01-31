@@ -279,5 +279,18 @@ Conclusion局限性段落：
 
 While effective, the proposed approach has limitations. The current experiments focus on optical remote sensing images with a limited number of land-cover categories (6-7 classes); the performance on multi-spectral or SAR imagery with more complex class distributions remains to be validated. Additionally, the dual-path design increases architectural complexity and branch interactions, which may require more careful optimization and regularization on very small datasets, potentially increasing the risk of overfitting. Future work will extend the evaluation to a broader range of sensor types and application scenarios.
 
+TABLE IV: ABLATION STUDY OF KEY COMPONENTS (LOVEDA, 1024×1024)
+
+Config	Dual-Path	APFG	Fusion Type	mIoU	FPS
+A (Baseline)	✗	✗	MSAA	52.84	53.86
+B (A w/o SS2D gate)	✗	✗	MSAA	47.30	69.37
+C (+Dual-Path, sum)	✓	✗	MSAA	51.16	46.35
+C1 (+APFG)	✓	✓	MSAA	52.44	38.71
+D (Ours, +MSK)	✓	✓	MSK	53.21	60.62
+E (D w/o ECA)	✓	✓	MSK	47.72	62.38
+F (D w/o PMC)	✓	✓	MSK	46.08	68.69
+Note: "SS2D gate" denotes the internal channel/spatial gating within SS2D used in the baseline; Config B removes this gating. Config C uses simple summation for dual-path fusion instead of APFG.
+
+
 
 
