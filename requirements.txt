@@ -1,225 +1,18 @@
 Section II 开头（完整版）
 The proposed DP-UNet is an improved architecture over CM-UNet, designed to enhance segmentation accuracy and optimize computational efficiency through structural innovations. It achieves these goals by replacing the original MSAA with the MSK module to eliminate redundant computations and by introducing the DVSS block in place of the single-path CSMamba block, thereby decoupling global context modeling from local detail refinement. As illustrated in Fig. 1(a), the network consists of three main components: a ResNet-18-based [6] encoder for multi-level feature extraction, MSK modules for multi-scale feature fusion, and a DVSS-based decoder for progressive upsampling and refinement.
 
-Given an input image I ∈ ℝ^(H×W×3), the encoder produces four-level features {F₁, F₂, F₃, F₄} at 1/4, 1/8, 1/16, and 1/32 of the original resolution. Three MSK modules enhance {F₁, F₂, F₃} through cross-scale fusion to obtain enriched skip features {F₁', F₂', F₃'} (Section II-B), while F₄ is preserved. The decoder reconstructs the segmentation map through four stages: stage 0 processes F₄, and stages 1–3 progressively fuse with {F₃', F₂', F₁'} via skip connections and DVSS blocks (Section II-A). The final prediction P is produced by a 1×1 convolution head and bilinearly upsampled to the original resolution. Formally:
+Given an input image $I \in \mathbb{R}^{H \times W \times 3}$, the encoder produces four-level features $\{F_1, F_2, F_3, F_4\}$ at 1/4, 1/8, 1/16, and 1/32 of the original resolution. Three MSK modules enhance $\{F_1, F_2, F_3\}$ through cross-scale fusion to obtain enriched skip features $\{F'_1, F'_2, F'_3\}$ (Section II-B), while $F_4$ is preserved. The decoder reconstructs the segmentation map through four stages: stage 0 processes $F_4$, and stages 1--3 progressively fuse with $\{F'_3, F'_2, F'_1\}$ via skip connections and DVSS blocks (Section II-A). The final prediction $P$ is produced by a $1 \times 1$ convolution head and bilinearly upsampled to the original resolution. Formally:
+\begin{equation}
+\{F_1, F_2, F_3, F_4\} = \mathrm{Enc}(I), \quad \{F'_1, F'_2, F'_3\} = \mathrm{MSK}(\{F_1, F_2, F_3\})
+\end{equation}
+\begin{equation}
+D_0 = \mathrm{DVSS}_0(F_4), \quad D_i = \mathrm{DVSS}_i(\mathrm{Proj}([\mathrm{Up}(D_{i-1}), F'_{4-i}])), \; i=1,2,3
+\end{equation}
+\begin{equation}
+P = \mathrm{Head}(D_3), \quad L = \mathrm{CE}(P, Y) + \sum_{i=1}^{3} \lambda_i \cdot \mathrm{CE}(P^{(i)}, Y)
+\end{equation}
+where $\{P^{(i)}\}$ are auxiliary predictions from decoder stages 1--3, and $\lambda_i = 0.4, 0.3, 0.2$ correspond to stages 3, 2, 1 respectively. Within each DVSS block, features are processed through parallel global and local paths---the latter applying learned weight modulation $W_{\mathrm{eff}}$ (Eq. 4) to enhance fine details---before being fused by the APFG module (detailed in Section II-A).
 
-{
-F
-1
-,
-F
-2
-,
-F
-3
-,
-F
-4
-}
-=
-E
-n
-c
-(
-I
-)
-,
-{
-F
-1
-′
-,
-F
-2
-′
-,
-F
-3
-′
-}
-=
-M
-S
-K
-(
-{
-F
-1
-,
-F
-2
-,
-F
-3
-}
-)
-{F 
-1
-​
- ,F 
-2
-​
- ,F 
-3
-​
- ,F 
-4
-​
- }=Enc(I),{F 
-1
-′
-​
- ,F 
-2
-′
-​
- ,F 
-3
-′
-​
- }=MSK({F 
-1
-​
- ,F 
-2
-​
- ,F 
-3
-​
- })
-
-D
-0
-=
-D
-V
-S
-S
-0
-(
-F
-4
-)
-,
-D
-i
-=
-D
-V
-S
-S
-i
-(
-P
-r
-o
-j
-(
-[
-U
-p
-(
-D
-i
-−
-1
-)
-,
-F
-4
-−
-i
-′
-]
-)
-)
-,
-  
-i
-=
-1
-,
-2
-,
-3
-D 
-0
-​
- =DVSS 
-0
-​
- (F 
-4
-​
- ),D 
-i
-​
- =DVSS 
-i
-​
- (Proj([Up(D 
-i−1
-​
- ),F 
-4−i
-′
-​
- ])),i=1,2,3
-
-P
-=
-H
-e
-a
-d
-(
-D
-3
-)
-,
-L
-=
-C
-E
-(
-P
-,
-Y
-)
-+
-∑
-i
-=
-1
-3
-λ
-i
-⋅
-C
-E
-(
-P
-(
-i
-)
-,
-Y
-)
-P=Head(D 
-3
-​
- ),L=CE(P,Y)+∑ 
-i=1
-3
-​
- λ 
-i
-​
- ⋅CE(P 
-(i)
- ,Y)
-
-where {P^(i)} are auxiliary predictions from decoder stages 1–3, and λᵢ = 0.4, 0.3, 0.2 correspond to stages 3, 2, 1 respectively. Within each DVSS block, features are processed through parallel global and local paths—the latter applying learned weight modulation W_eff (Eq. 1) to enhance fine details—before being fused by the APFG module (detailed in Section II-A).
 
 Section II-A（完整版）
 A. Main Decoder (DVSS)
@@ -316,4 +109,5 @@ Conv    ──────────► │  ├─────────┤
                     │  │ MaxPool │──┘                               └──────┘
                     │  └─────────┘                         │
                     └──────────────────────────────────────┘
+
 
