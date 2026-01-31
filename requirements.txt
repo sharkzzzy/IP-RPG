@@ -275,3 +275,9 @@ Three MSK modules operate at different encoder scales to generate {F₁', F₂',
 
 This design improves efficiency compared to the baseline MSAA by operating in a compressed feature space and using only spatial attention. A standard channel attention module requires C'²/2 parameters, while the spatial attention here uses only 98 parameters (a 7×7 conv with 2 input channels). When C'=32, this reduces attention-related parameters from 512 to 98, achieving over 80% reduction.
 
+Conclusion局限性段落：
+
+While effective, the proposed approach has limitations. The current experiments focus on optical remote sensing images with a limited number of land-cover categories (6-7 classes); the performance on multi-spectral or SAR imagery with more complex class distributions remains to be validated. Additionally, the dual-path design increases architectural complexity and branch interactions, which may require more careful optimization and regularization on very small datasets, potentially increasing the risk of overfitting. Future work will extend the evaluation to a broader range of sensor types and application scenarios.
+
+
+
