@@ -1,3 +1,90 @@
-The MSAA module at the feature fusion stage already incorporates both channel and spatial attention, yet similar channel/spatial attention gating is reapplied inside the SS2D module, leading to redundant attention operations.
+修正后的安全精简方案
+1. II-A 开头合并（安全）✅
+原文（两段）：
 
-(I \in \mathbb{R}^{H \times W \times 3})
+"The decoder consists of four stages, where each stage employs a DVSS block that decouples global and local processing. In the local detail path, ECA is applied for channel recalibration, followed by a convolution with PMC-modulated weights (W_eff). The resulting global/local features (F_g, F_l) are then fused by APFG. We now detail this design.
+
+At stage 0, F₄ is refined by a DVSS block and upsampled. For stages i ∈ {1, 2, 3}, the upsampled feature is concatenated with the corresponding enriched skip feature F'₄₋ᵢ, projected by a 1×1 convolution, and refined by a DVSS block. Auxiliary heads attached to stages 1–3 provide deep supervision."
+
+合并版：
+
+"The decoder consists of four stages: stage 0 refines F₄, while stages 1–3 fuse upsampled features with skip features {F'₃, F'₂, F'₁} via concatenation, 1×1 projection, and DVSS blocks. Each DVSS decouples global and local processing—the local path applies ECA for channel recalibration followed by PMC-modulated convolution (W_eff), then both paths are fused by APFG. Auxiliary heads at stages 1–3 provide deep supervision. We now detail this design."
+
+节省：~2行
+
+2. II-B 效率分析精简（安全）✅
+原文：
+
+"This design improves efficiency compared to the baseline MSAA by operating in a compressed feature space and using only spatial attention. A standard channel attention module requires C'²/2 parameters, while the spatial attention here uses only 98 parameters (a 7×7 conv with 2 input channels). When C'=32, this reduces attention-related parameters from 512 to 98, achieving over 80% reduction."
+
+精简版：
+
+"This design improves efficiency over MSAA by operating in a compressed feature space (C/4 channels) and using only spatial attention, reducing attention-related parameters by over 80%."
+
+节省：~2行
+
+3. Results 性能描述精简（安全）✅
+原文：
+
+"On ISPRS Potsdam (86.71% mIoU), it excelled in segmenting boundary-sensitive categories like "Lowveg" and "Building", yielding maps with clearer contours (Fig. 4). This demonstrates the new network's efficacy in refining object boundaries and capturing fine details, producing segmentation maps with clearer contours and fewer errors.
+
+On ISPRS Vaihingen (83.84% mIoU), it demonstrated particularly strong performance in recognizing small objects such as "Cars" (Fig. 5). This capability is attributed to the PMC module, which adapts to local structures through dynamic receptive field adjustment, resulting in more complete segmentation of small and irregular targets.
+
+On the more diverse LoveDA dataset (53.21% mIoU), it showed significant improvements in structured categories like "Building" and "Road" (Fig. 6). These results highlight the effective collaboration between global context and local detail paths, achieving strong results in complex land segmentation."
+
+精简版：
+
+"On ISPRS Potsdam (86.71% mIoU), DP-UNet excelled in boundary-sensitive categories ("Lowveg", "Building"), yielding clearer contours (Fig. 4). On ISPRS Vaihingen (83.84% mIoU), it showed strong performance on small objects like "Cars" (Fig. 5), attributed to PMC's adaptive weight modulation. On LoveDA (53.21% mIoU), it improved structured categories ("Building", "Road"), highlighting effective global-local collaboration (Fig. 6)."
+
+节省：~5-6行
+
+4. Introduction 可适当精简（安全）✅
+原文第二段（较长）：
+
+"To address these challenges, recent research combines lightweight state-space models with CNN-based architectures. Traditional U-Net [1] architectures, whether based on CNNs [2] or Transformers [3], struggle with large-scale scenes and suffer from high computational complexity. Combining state-space models with CNNs leverages both efficiency and the rich features from pretrained CNN models. A notable advancement is CM-UNet [4], which combines a CNN-based encoder with a Mamba-based [5] decoder, employing a CSMamba block with channel-spatial attention gating and a Multi-Scale Attention Aggregation (MSAA) module for feature fusion."
+
+精简版：
+
+"To address these challenges, recent research combines lightweight state-space models with CNNs. Traditional U-Net [1] architectures struggle with large-scale scenes and high complexity. A notable advancement is CM-UNet [4], which combines a CNN encoder with a Mamba-based [5] decoder, using a CSMamba block with channel-spatial attention gating and an MSAA module for feature fusion."
+
+节省：~2行
+
+5. PMC解释（谨慎精简）⚠️
+保留R1-2核心内容，只删除冗余：
+
+原文：
+
+"This occurs partly because the kernel center always corresponds to a well-aligned sampling position across spatial locations, and is repeatedly reinforced by overlapping receptive fields, leading to more stable gradient signals and larger cumulative updates during optimization. Although a sufficiently expressive network could, in principle, learn non-center-dominant kernels from data, standard training does not explicitly encourage such behavior; consequently, gradient-based optimization tends to converge to center-reliant solutions that minimize training loss but remain suboptimal for fine-detail extraction."
+
+微调版（保留R1-2核心论证）：
+
+"This occurs because the kernel center corresponds to well-aligned sampling positions and is reinforced by overlapping receptive fields, leading to more stable gradients and larger updates. Although a network could in principle learn non-center-dominant kernels, standard training does not encourage this; optimization thus converges to center-reliant solutions that are suboptimal for fine-detail extraction."
+
+节省：~1-2行，同时保留R1-2核心答案
+
+
+
+采纳您的建议后的最终版本
+1. II-A 开头（合并版）
+"The decoder consists of four stages: stage 0 refines F₄, while stages 1–3 fuse upsampled features with skip features {F'₃, F'₂, F'₁} via concatenation, 1×1 projection, and DVSS blocks. Each DVSS decouples global and local processing—the local path applies ECA for channel recalibration followed by PMC-modulated convolution (
+W
+e
+f
+f
+W 
+eff
+​
+ ), then both paths are fused by APFG. Auxiliary heads at stages 1–3 provide deep supervision. We now detail this design."
+
+2. II-B 效率分析（保留量化括号）
+"This design improves efficiency over MSAA by operating in a compressed feature space (C/4 channels) and using only spatial attention, reducing attention-related parameters by over 80% (98 vs. 512 when C'=32)."
+
+3. Results 性能描述（精简版）
+"On ISPRS Potsdam (86.71% mIoU), DP-UNet excelled in boundary-sensitive categories ("Lowveg", "Building"), yielding clearer contours (Fig. 4). On ISPRS Vaihingen (83.84% mIoU), it showed strong performance on small objects like "Cars" (Fig. 5), attributed to PMC's adaptive weight modulation. On LoveDA (53.21% mIoU), it improved structured categories ("Building", "Road"), highlighting effective global-local collaboration (Fig. 6)."
+
+4. Introduction 第二段（精简版）
+"To address these challenges, recent research combines lightweight state-space models with CNNs. Traditional U-Net [1] architectures struggle with large-scale scenes and high complexity. A notable advancement is CM-UNet [4], which combines a CNN encoder with a Mamba-based [5] decoder, using a CSMamba block with channel-spatial attention gating and an MSAA module for feature fusion."
+
+5. PMC 解释（微调版，保留R1-2核心）
+"This occurs because the kernel center corresponds to well-aligned sampling positions and is reinforced by overlapping receptive fields, leading to more stable gradients and larger updates. Although a network could in principle learn non-center-dominant kernels, standard training does not encourage this; optimization thus converges to center-reliant solutions that are suboptimal for fine-detail extraction."
+
