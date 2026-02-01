@@ -1,162 +1,137 @@
-160 styles found:
+@inproceedings{ronneberger2015u,
+  title={U-net: Convolutional networks for biomedical image segmentation},
+  author={Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  booktitle={International Conference on Medical image computing and computer-assisted intervention},
+  pages={234--241},
+  year={2015},
+  organization={Springer}
+}
 
-    IEEE Access(2014-05-15 02:20:32)
-    IEEE Aerospace and Electronic Systems Magazine(2014-05-15 02:20:32)
-    IEEE Annals of the History of Computing(2014-05-15 02:20:32)
-    IEEE Antennas and Propagation Magazine(2014-05-15 02:20:32)
-    IEEE Antennas and Wireless Propagation Letters(2014-05-15 02:20:32)
-    IEEE Circuits and Systems Magazine(2014-05-15 02:20:32)
-    IEEE Communications Letters(2014-05-15 02:20:32)
-    IEEE Communications Magazine(2014-05-15 02:20:32)
-    IEEE Communications Surveys & Tutorials(2014-05-15 02:20:32)
-    IEEE Computational Intelligence Magazine(2014-05-15 02:20:32)
-    IEEE Computer Graphics and Applications(2014-05-15 02:20:32)
-    IEEE Consumer Electronics Magazine(2014-05-15 02:20:32)
-    IEEE Control Systems(2014-05-15 02:20:32)
-    IEEE Design & Test(2014-05-15 02:20:32)
-    IEEE Electrical Insulation Magazine(2014-05-15 02:20:32)
-    IEEE Electrification Magazine(2014-05-15 02:20:32)
-    IEEE Electromagnetic Compatibility Magazine(2014-05-15 02:20:32)
-    IEEE Electron Device Letters(2014-05-15 02:20:32)
-    IEEE Embedded Systems Letters(2014-05-15 02:20:32)
-    IEEE Engineering Management Review(2014-05-15 02:20:32)
-    IEEE Geoscience and Remote Sensing Letters(2014-05-15 02:20:32)
-    IEEE Geoscience and Remote Sensing Magazine(2014-05-15 02:20:32)
-    IEEE Industrial Electronics Magazine(2014-05-15 02:20:32)
-    IEEE Industry Applications Magazine(2014-05-15 02:20:32)
-    IEEE Instrumentation & Measurement Magazine(2014-05-15 02:20:32)
-    IEEE Intelligent Systems(2014-05-15 02:20:32)
-    IEEE Intelligent Transportation Systems Magazine(2014-05-15 02:20:32)
-    IEEE Internet Computing(2014-05-15 02:20:32)
-    IEEE Internet of Things Journal(2014-05-15 02:20:32)
-    IEEE Journal of Biomedical and Health Informatics(2014-05-15 02:20:32)
-    IEEE Journal of Emerging and Selected Topics in Power Electronics(2014-05-15 02:20:32)
-    IEEE Journal of Oceanic Engineering(2014-05-15 02:20:32)
-    IEEE Journal of Photovoltaics(2014-05-15 02:20:32)
-    IEEE Journal of Quantum Electronics(2014-05-15 02:20:32)
-    IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing(2014-05-15 02:20:32)
-    IEEE Journal of Selected Topics in Quantum Electronics(2014-05-15 02:20:32)
-    IEEE Journal of Selected Topics in Signal Processing(2014-05-15 02:20:32)
-    IEEE Journal of Solid-State Circuits(2014-05-15 02:20:32)
-    IEEE Journal of the Electron Devices Society(2014-05-15 02:20:32)
-    IEEE Journal of Translational Engineering in Health and Medicine(2014-05-15 02:20:32)
-    IEEE Journal on Emerging and Selected Topics in Circuits and Systems(2014-05-15 02:20:32)
-    IEEE Journal on Selected Areas in Communications(2014-05-15 02:20:32)
-    IEEE Latin America Transactions(2014-05-15 02:20:32)
-    IEEE Magnetics Letters(2019-01-04 05:27:33)
-    IEEE Micro(2014-05-15 02:20:32)
-    IEEE Microwave and Wireless Components Letters(2014-05-15 02:20:32)
-    IEEE Microwave Magazine(2014-05-15 02:20:32)
-    IEEE MultiMedia(2014-05-15 02:20:32)
-    IEEE Nanotechnology Magazine(2014-05-15 02:20:32)
-    IEEE Network(2014-05-15 02:20:32)
-    IEEE Pervasive Computing(2014-05-15 02:20:32)
-    IEEE Photonics Journal(2014-05-15 02:20:32)
-    IEEE Photonics Technology Letters(2014-05-15 02:20:32)
-    IEEE Potentials(2014-05-15 02:20:32)
-    IEEE Power and Energy Magazine(2014-05-15 02:20:32)
-    IEEE Pulse(2014-05-15 02:20:32)
-    IEEE Reference Guide version 11.29.2023(2026-01-07 15:36:59)
-    IEEE Reviews in Biomedical Engineering(2014-05-15 02:20:32)
-    IEEE Revista Iberoamericana de Tecnologias del Aprendizaje(2014-05-15 02:20:32)
-    IEEE Robotics & Automation Magazine(2014-05-15 02:20:32)
-    IEEE Security & Privacy(2014-05-15 02:20:32)
-    IEEE Sensors Journal(2014-05-15 02:20:32)
-    IEEE Signal Processing Letters(2014-05-15 02:20:32)
-    IEEE Signal Processing Magazine(2014-05-15 02:20:32)
-    IEEE Software(2014-05-15 02:20:32)
-    IEEE Solid-State Circuits Magazine(2014-05-15 02:20:32)
-    IEEE Spectrum(2014-05-15 02:20:32)
-    IEEE Systems Journal(2014-05-15 02:20:32)
-    IEEE Technology and Society Magazine(2014-05-15 02:20:32)
-    IEEE Transactions on Aerospace and Electronic Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Affective Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Antennas and Propagation(2014-05-15 02:20:32)
-    IEEE Transactions on Applied Superconductivity(2014-05-15 02:20:32)
-    IEEE Transactions on Automatic Control(2014-05-15 02:20:32)
-    IEEE Transactions on Automation Science and Engineering(2014-05-15 02:20:32)
-    IEEE Transactions on Autonomous Mental Development(2014-05-15 02:20:32)
-    IEEE Transactions on Biomedical Circuits and Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Biomedical Engineering(2014-05-15 02:20:32)
-    IEEE Transactions on Broadcasting(2014-05-15 02:20:32)
-    IEEE Transactions on Circuits and Systems for Video Technology(2014-05-15 02:20:32)
-    IEEE Transactions on Circuits and Systems I: Regular Papers(2014-05-15 02:20:32)
-    IEEE Transactions on Circuits and Systems II: Express Briefs(2014-05-15 02:20:32)
-    IEEE Transactions on Cloud Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Communications(2014-05-15 02:20:32)
-    IEEE Transactions on Components, Packaging and Manufacturing Technology(2014-05-15 02:20:32)
-    IEEE Transactions on Computational Intelligence and AI in Games(2014-05-15 02:20:32)
-    IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Computers(2014-05-15 02:20:32)
-    IEEE Transactions on Consumer Electronics(2014-05-15 02:20:32)
-    IEEE Transactions on Control Systems Technology(2014-05-15 02:20:32)
-    IEEE Transactions on Cybernetics(2014-05-15 02:20:32)
-    IEEE Transactions on Dependable and Secure Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Device and Materials Reliability(2014-05-15 02:20:32)
-    IEEE Transactions on Dielectrics and Electrical Insulation(2014-05-15 02:20:32)
-    IEEE Transactions on Education(2014-05-15 02:20:32)
-    IEEE Transactions on Electromagnetic Compatibility(2014-05-15 02:20:32)
-    IEEE Transactions on Electron Devices(2014-05-15 02:20:32)
-    IEEE Transactions on Emerging Topics in Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Energy Conversion(2014-05-15 02:20:32)
-    IEEE Transactions on Engineering Management(2014-05-15 02:20:32)
-    IEEE Transactions on Evolutionary Computation(2014-05-15 02:20:32)
-    IEEE Transactions on Fuzzy Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Geoscience and Remote Sensing(2014-05-15 02:20:32)
-    IEEE Transactions on Haptics(2014-05-15 02:20:32)
-    IEEE Transactions on Human-Machine Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Image Processing(2014-05-15 02:20:32)
-    IEEE Transactions on Industrial Electronics(2014-05-15 02:20:32)
-    IEEE Transactions on Industrial Informatics(2014-05-15 02:20:32)
-    IEEE Transactions on Industry Applications(2014-05-15 02:20:32)
-    IEEE Transactions on Information Forensics and Security(2014-05-15 02:20:32)
-    IEEE Transactions on Information Theory(2014-05-15 02:20:32)
-    IEEE Transactions on Instrumentation and Measurement(2014-05-15 02:20:32)
-    IEEE Transactions on Intelligent Transportation Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Knowledge and Data Engineering(2014-05-15 02:20:32)
-    IEEE Transactions on Learning Technologies(2014-05-15 02:20:32)
-    IEEE Transactions on Magnetics(2014-05-15 02:20:32)
-    IEEE Transactions on Medical Imaging(2018-03-31 04:01:14)
-    IEEE Transactions on Microwave Theory and Techniques(2014-05-15 02:20:32)
-    IEEE Transactions on Mobile Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Multimedia(2014-05-15 02:20:32)
-    IEEE Transactions on NanoBioscience(2014-05-15 02:20:32)
-    IEEE Transactions on Nanotechnology(2014-05-15 02:20:32)
-    IEEE Transactions on Network and Service Management(2014-05-15 02:20:32)
-    IEEE Transactions on Neural Networks and Learning Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Neural Systems and Rehabilitation Engineering(2014-05-15 02:20:32)
-    IEEE Transactions on Nuclear Science(2014-05-15 02:20:32)
-    IEEE Transactions on Parallel and Distributed Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Pattern Analysis and Machine Intelligence(2014-05-15 02:20:32)
-    IEEE Transactions on Plasma Science(2014-05-15 02:20:32)
-    IEEE Transactions on Power Delivery(2014-05-15 02:20:32)
-    IEEE Transactions on Power Electronics(2014-05-15 02:20:32)
-    IEEE Transactions on Power Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Professional Communication(2014-05-15 02:20:32)
-    IEEE Transactions on Reliability(2014-05-15 02:20:32)
-    IEEE Transactions on Robotics(2014-05-15 02:20:32)
-    IEEE Transactions on Semiconductor Manufacturing(2014-05-15 02:20:32)
-    IEEE Transactions on Services Computing(2014-05-15 02:20:32)
-    IEEE Transactions on Signal Processing(2014-05-15 02:20:32)
-    IEEE Transactions on Smart Grid(2014-05-15 02:20:32)
-    IEEE Transactions on Software Engineering(2014-05-15 02:20:32)
-    IEEE Transactions on Sustainable Energy(2014-05-15 02:20:32)
-    IEEE Transactions on Systems, Man, and Cybernetics: Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Terahertz Science and Technology(2014-05-15 02:20:32)
-    IEEE Transactions on Ultrasonics, Ferroelectrics and Frequency Control(2014-05-15 02:20:32)
-    IEEE Transactions on Vehicular Technology(2014-05-15 02:20:32)
-    IEEE Transactions on Very Large Scale Integration Systems(2014-05-15 02:20:32)
-    IEEE Transactions on Visualization and Computer Graphics(2014-05-15 02:20:32)
-    IEEE Transactions on Wireless Communications(2014-05-15 02:20:32)
-    IEEE Vehicular Technology Magazine(2014-05-15 02:20:32)
-    IEEE Wireless Communications(2014-05-15 02:20:32)
-    IEEE Wireless Communications Letters(2014-05-15 02:20:32)
-    IEEE Women in Engineering Magazine(2014-05-15 02:20:32)
-    IEEE/ACM Transactions on Audio, Speech, and Language Processing(2014-05-15 02:20:32)
-    IEEE/ACM Transactions on Computational Biology and Bioinformatics(2014-05-15 02:20:32)
-    IEEE/ACM Transactions on Networking(2014-05-15 02:20:32)
-    IEEE/ASME Transactions on Mechatronics(2014-05-15 02:20:32)
-    IEEE/OSA Journal of Optical Communications and Networking(2014-05-15 02:20:32)
-    Polytechnique Montréal - IEEE (Français)(2025-05-18 00:55:38)
-    Proceedings of the IEEE(2014-05-15 02:20:32)
-    University of York - IEEE(2025-07-11 09:55:45)
+@article{he2022swin,
+  title={Swin transformer embedding UNet for remote sensing image semantic segmentation},
+  author={He, Xin and Zhou, Yong and Zhao, Jiaqi and Zhang, Di and Yao, Rui and Xue, Yong},
+  journal={IEEE transactions on geoscience and remote sensing},
+  volume={60},
+  pages={1--15},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{liu2024cm,
+  title={CM-UNet: Hybrid CNN-Mamba UNet for remote sensing image semantic segmentation},
+  author={Liu, Mushui and Dan, Jun and Lu, Ziqian and Yu, Yunlong and Li, Yingming and Li, Xi},
+  journal={arXiv preprint arXiv:2405.10530},
+  year={2024}
+}
+
+@article{liu2024vmamba,
+  title={Vmamba: Visual state space model},
+  author={Liu, Yue and Tian, Yunjie and Zhao, Yuzhong and Yu, Hongtian and Xie, Lingxi and Wang, Yaowei and Ye, Qixiang and Jiao, Jianbin and Liu, Yunfan},
+  journal={Advances in neural information processing systems},
+  volume={37},
+  pages={103031--103063},
+  year={2024}
+}
+
+@inproceedings{he2016deep,
+  title={Deep residual learning for image recognition},
+  author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+  pages={770--778},
+  year={2016}
+}
+
+@inproceedings{wang2020eca,
+  title={ECA-Net: Efficient channel attention for deep convolutional neural networks},
+  author={Wang, Qilong and Wu, Banggu and Zhu, Pengfei and Li, Peihua and Zuo, Wangmeng and Hu, Qinghua},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={11534--11542},
+  year={2020}
+}
+
+@article{zhang2024ldconv,
+  title={LDConv: Linear deformable convolution for improving convolutional neural networks},
+  author={Zhang, Xin and Song, Yingze and Song, Tingting and Yang, Degang and Ye, Yichen and Zhou, Jie and Zhang, Liming},
+  journal={Image and Vision Computing},
+  volume={149},
+  pages={105190},
+  year={2024},
+  publisher={Elsevier}
+}
+
+@article{wang2021loveda,
+  title={LoveDA: A remote sensing land-cover dataset for domain adaptive semantic segmentation},
+  author={Wang, Junjue and Zheng, Zhuo and Ma, Ailong and Lu, Xiaoyan and Zhong, Yanfei},
+  journal={arXiv preprint arXiv:2110.08733},
+  year={2021}
+}
+
+@article{li2021abcnet,
+  title={ABCNet: Attentive bilateral contextual network for efficient semantic segmentation of fine-resolution remotely sensed imagery},
+  author={Li, Rui and Zheng, Shunyi and Zhang, Ce and Duan, Chenxi and Wang, Libo and Atkinson, Peter M},
+  journal={ISPRS journal of photogrammetry and remote sensing},
+  volume={181},
+  pages={84--98},
+  year={2021},
+  publisher={Elsevier}
+}
+
+@inproceedings{strudel2021segmenter,
+  title={Segmenter: Transformer for semantic segmentation},
+  author={Strudel, Robin and Garcia, Ricardo and Laptev, Ivan and Schmid, Cordelia},
+  booktitle={Proceedings of the IEEE/CVF international conference on computer vision},
+  pages={7262--7272},
+  year={2021}
+}
+
+@article{zhou2022banet,
+  title={Banet: Boundary-assistant encoder-decoder network for semantic segmentation},
+  author={Zhou, Quan and Qiang, Yong and Mo, Yuwei and Wu, Xiaofu and Latecki, Longin Jan},
+  journal={IEEE Transactions on Intelligent Transportation Systems},
+  volume={23},
+  number={12},
+  pages={25259--25270},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{wang2022unetformer,
+  title={UNetFormer: A UNet-like transformer for efficient semantic segmentation of remote sensing urban scene imagery},
+  author={Wang, Libo and Li, Rui and Zhang, Ce and Fang, Shenghui and Duan, Chenxi and Meng, Xiaoliang and Atkinson, Peter M},
+  journal={ISPRS Journal of Photogrammetry and Remote Sensing},
+  volume={190},
+  pages={196--214},
+  year={2022},
+  publisher={Elsevier}
+}
+
+@inproceedings{chen2018encoder,
+  title={Encoder-decoder with atrous separable convolution for semantic image segmentation},
+  author={Chen, Liang-Chieh and Zhu, Yukun and Papandreou, George and Schroff, Florian and Adam, Hartwig},
+  booktitle={Proceedings of the European conference on computer vision (ECCV)},
+  pages={801--818},
+  year={2018}
+}
+
+@article{ma2024rs,
+  title={Rs 3 mamba: Visual state space model for remote sensing image semantic segmentation},
+  author={Ma, Xianping and Zhang, Xiaokang and Pun, Man-On},
+  journal={IEEE Geoscience and Remote Sensing Letters},
+  volume={21},
+  pages={1--5},
+  year={2024},
+  publisher={IEEE}
+}
+
+@article{rottensteiner2012isprs,
+  title={The ISPRS benchmark on urban object classification and 3D building reconstruction},
+  author={Rottensteiner, Franz and Sohn, Gunho and Jung, Jaewook and Gerke, Markus and Baillard, Caroline and Benitez, Sebastien and Breitkopf, Uwe},
+  year={2012},
+  publisher={G{\"o}ttingen: Copernicus GmbH}
+}
+
+
+
+
+AI翻译
+
