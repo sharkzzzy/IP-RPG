@@ -1,5 +1,6 @@
-and 
-λ
-=
-0.4
-λ=0.4 is the weight for auxiliary losses
+\quad F'_i = \mathrm{MSK}_i(F_1,F_2,F_3) \text{ for } i \in \{1,2,3\}
+
+MSK 
+i
+​
+  fuses multi-scale features with the other two scales resized to the target resolution, 
