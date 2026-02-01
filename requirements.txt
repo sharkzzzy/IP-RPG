@@ -1,8 +1,9 @@
-Formally:
-{F1,F2,F3,F4}=EncI, Fi'=MSKiF1,F2,F3
-D4=DVSS4F4,Di=DVSSiProjUpDi+1,Fi'
-P=HeadD1,L=JP,Y+λi=24JPi,Y
-where \mathrm{Enc}\left(\cdot\right) denotes the encoder, \mathrm{MS}\mathrm{K}_\mathrm{i} fuses multi-scale features with the other two scales resized to the target resolution, \mathrm{Proj}\left(\cdot\right) is a point-wise projection for channel reduction, and \mathrm{Up}\left(\cdot\right) denotes bilinear upsampling. P_i are auxiliary predictions from decoder stages 2-4, J\left(\cdot,\cdot\right) is a joint loss combining cross-entropy and Dice loss, and\ \lambda=0.4 is the weight for auxiliary losses.
-
-A. Main decoder (DVSS)
-The decoder consists of four stages: stage 4 refines F₄, while stages 1–3 fuse upsampled features with skip features F_3^\prime,F_2^\prime,F_1^\prime via concatenation, 1\times1 projection, and DVSS blocks. Each DVSS decouples global and local processing—the local path applies ECA for channel recalibration followed by PMC-modulated convolution\ (W_{eff}), then both paths are fused by APFG. Auxiliary heads at stages 1–3 provide deep supervision. 
+while Blocks 3, 2, 1 progressively fuse upsampled features with skip features F₃', F₂', F₁' via concatenation, 1×1 projection, and DVSS processing. Each DVSS decouples global and local processing—the local path applies ECA for channel recalibration followed by PMC-modulated convolution (
+W
+e
+f
+f
+W 
+eff
+​
+ ), then both paths are fused by APFG. Auxiliary heads at Blocks 2–4 provide deep supervision.
