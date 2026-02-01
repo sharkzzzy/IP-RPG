@@ -1,20 +1,39 @@
-After obtaining the global feature 
-F
-g
-F 
-g
+where 
+E
+n
+c
+(
+⋅
+)
+Enc(⋅) denotes the encoder, 
+P
+r
+o
+j
+(
+⋅
+)
+Proj(⋅) is a point-wise projection for channel reduction, 
+U
+p
+(
+⋅
+)
+Up(⋅) denotes bilinear upsampling, 
+{
+P
+i
+}
+{P 
+i
 ​
-  (directly from 
-F
-s
-F 
-s
-​
- ) and the local feature 
-F
-l
-F 
-l
-​
-  (from PMC), both outputs are fused via the APFG module.
+ } are auxiliary predictions from decoder stages 1–3, and 
+J
+(
+⋅
+,
+⋅
+)
+J(⋅,⋅) is a joint loss combining cross-entropy and Dice loss.
 
+L = J(P,Y) + 0.4 ∑_{i=1}^{3} J(P_i, Y)
