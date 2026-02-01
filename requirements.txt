@@ -1,1 +1,20 @@
-This study transitions from "attention stacking" to "architecture rethinking." By proposing a dual-path decoupled architecture that explicitly separates global and local processing, we overcome the computational redundancy and performance bottlenecks of the baseline. This strategic decoupling, coupled with streamlined attention, enhances both efficiency and accuracy on multiple remote sensing benchmarks.
+After obtaining the global feature 
+F
+g
+F 
+g
+​
+  (directly from 
+F
+s
+F 
+s
+​
+ ) and the local feature 
+F
+l
+F 
+l
+​
+  (from PMC), both outputs are fused via the APFG module.
+
