@@ -1,6 +1,5 @@
- Formally:
-{F1,F2,F3,F4}=EncI,{F1',F2',F3'}=MSK{F1,F2,F3}
-D0=DVSS0F4,Di=DVSSiProjUpDi-1,F4-i'
-P=HeadD3,L=JP,Y+λi=13JPi,Y
-where \mathrm{Enc}\left(\cdot\right) denotes the encoder, \mathrm{Proj}\left(\cdot\right) is a point-wise projection for channel reduction, and \mathrm{Up}\left(\cdot\right) denotes bilinear upsampling. P_i are auxiliary predictions from decoder stages 1-3, and J\left(\cdot,\cdot\right) is a joint loss combining cross-entropy and Dice loss.
-
+and 
+λ
+=
+0.4
+λ=0.4 is the weight for auxiliary losses
