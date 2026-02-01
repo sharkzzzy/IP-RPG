@@ -1,137 +1,29 @@
-@inproceedings{ronneberger2015u,
-  title={U-net: Convolutional networks for biomedical image segmentation},
-  author={Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
-  booktitle={International Conference on Medical image computing and computer-assisted intervention},
-  pages={234--241},
-  year={2015},
-  organization={Springer}
-}
+[1] O. Ronneberger, P. Fischer, and T. Brox, “U-net: Convolutional networks for biomedical image segmentation,” in International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI), pp. 234–241, 2015.
 
-@article{he2022swin,
-  title={Swin transformer embedding UNet for remote sensing image semantic segmentation},
-  author={He, Xin and Zhou, Yong and Zhao, Jiaqi and Zhang, Di and Yao, Rui and Xue, Yong},
-  journal={IEEE transactions on geoscience and remote sensing},
-  volume={60},
-  pages={1--15},
-  year={2022},
-  publisher={IEEE}
-}
+[2] X. He, Y. Zhou, J. Zhao, D. Zhang, R. Yao, and Y. Xue, “Swin transformer embedding UNet for remote sensing image semantic segmentation,” IEEE Transactions on Geoscience and Remote Sensing, vol. 60, pp. 1–15, 2022.
 
-@article{liu2024cm,
-  title={CM-UNet: Hybrid CNN-Mamba UNet for remote sensing image semantic segmentation},
-  author={Liu, Mushui and Dan, Jun and Lu, Ziqian and Yu, Yunlong and Li, Yingming and Li, Xi},
-  journal={arXiv preprint arXiv:2405.10530},
-  year={2024}
-}
+[3] M. Liu, J. Dan, Z. Lu, Y. Yu, Y. Li, and X. Li, “CM-UNet: Hybrid CNN-Mamba UNet for remote sensing image semantic segmentation,” arXiv preprint arXiv:2405.10530, 2024.
 
-@article{liu2024vmamba,
-  title={Vmamba: Visual state space model},
-  author={Liu, Yue and Tian, Yunjie and Zhao, Yuzhong and Yu, Hongtian and Xie, Lingxi and Wang, Yaowei and Ye, Qixiang and Jiao, Jianbin and Liu, Yunfan},
-  journal={Advances in neural information processing systems},
-  volume={37},
-  pages={103031--103063},
-  year={2024}
-}
+[4] Y. Liu, Y. Tian, Y. Zhao, H. Yu, L. Xie, Y. Wang, Q. Ye, J. Jiao, and Y. Liu, “Vmamba: Visual state space model,” Advances in Neural Information Processing Systems, vol. 37, pp. 103031–103063, 2024.
 
-@inproceedings{he2016deep,
-  title={Deep residual learning for image recognition},
-  author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
-  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
-  pages={770--778},
-  year={2016}
-}
+[5] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 770–778, 2016.
 
-@inproceedings{wang2020eca,
-  title={ECA-Net: Efficient channel attention for deep convolutional neural networks},
-  author={Wang, Qilong and Wu, Banggu and Zhu, Pengfei and Li, Peihua and Zuo, Wangmeng and Hu, Qinghua},
-  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
-  pages={11534--11542},
-  year={2020}
-}
+[6] Q. Wang, B. Wu, P. Zhu, P. Li, W. Zuo, and Q. Hu, “ECA-Net: Efficient channel attention for deep convolutional neural networks,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pp. 11534–11542, 2020.
 
-@article{zhang2024ldconv,
-  title={LDConv: Linear deformable convolution for improving convolutional neural networks},
-  author={Zhang, Xin and Song, Yingze and Song, Tingting and Yang, Degang and Ye, Yichen and Zhou, Jie and Zhang, Liming},
-  journal={Image and Vision Computing},
-  volume={149},
-  pages={105190},
-  year={2024},
-  publisher={Elsevier}
-}
+[7] X. Zhang, Y. Song, T. Song, D. Yang, Y. Ye, J. Zhou, and L. Zhang, “LDConv: Linear deformable convolution for improving convolutional neural networks,” Image and Vision Computing, vol. 149, p. 105190, 2024.
 
-@article{wang2021loveda,
-  title={LoveDA: A remote sensing land-cover dataset for domain adaptive semantic segmentation},
-  author={Wang, Junjue and Zheng, Zhuo and Ma, Ailong and Lu, Xiaoyan and Zhong, Yanfei},
-  journal={arXiv preprint arXiv:2110.08733},
-  year={2021}
-}
+[8] J. Wang, Z. Zheng, A. Ma, X. Lu, and Y. Zhong, “LoveDA: A remote sensing land-cover dataset for domain adaptive semantic segmentation,” arXiv preprint arXiv:2110.08733, 2021.
 
-@article{li2021abcnet,
-  title={ABCNet: Attentive bilateral contextual network for efficient semantic segmentation of fine-resolution remotely sensed imagery},
-  author={Li, Rui and Zheng, Shunyi and Zhang, Ce and Duan, Chenxi and Wang, Libo and Atkinson, Peter M},
-  journal={ISPRS journal of photogrammetry and remote sensing},
-  volume={181},
-  pages={84--98},
-  year={2021},
-  publisher={Elsevier}
-}
+[9] R. Li, S. Zheng, C. Zhang, C. Duan, L. Wang, and P. M. Atkinson, “ABCNet: Attentive bilateral contextual network for efficient semantic segmentation of fine-resolution remotely sensed imagery,” ISPRS Journal of Photogrammetry and Remote Sensing, vol. 181, pp. 84–98, 2021.
 
-@inproceedings{strudel2021segmenter,
-  title={Segmenter: Transformer for semantic segmentation},
-  author={Strudel, Robin and Garcia, Ricardo and Laptev, Ivan and Schmid, Cordelia},
-  booktitle={Proceedings of the IEEE/CVF international conference on computer vision},
-  pages={7262--7272},
-  year={2021}
-}
+[10] R. Strudel, R. Garcia, I. Laptev, and C. Schmid, “Segmenter: Transformer for semantic segmentation,” in Proceedings of the IEEE/CVF International Conference on Computer Vision, pp. 7262–7272, 2021.
 
-@article{zhou2022banet,
-  title={Banet: Boundary-assistant encoder-decoder network for semantic segmentation},
-  author={Zhou, Quan and Qiang, Yong and Mo, Yuwei and Wu, Xiaofu and Latecki, Longin Jan},
-  journal={IEEE Transactions on Intelligent Transportation Systems},
-  volume={23},
-  number={12},
-  pages={25259--25270},
-  year={2022},
-  publisher={IEEE}
-}
+[11] Q. Zhou, Y. Qiang, Y. Mo, X. Wu, and L. J. Latecki, “BANet: Boundary-assistant encoder-decoder network for semantic segmentation,” IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 12, pp. 25259–25270, 2022.
 
-@article{wang2022unetformer,
-  title={UNetFormer: A UNet-like transformer for efficient semantic segmentation of remote sensing urban scene imagery},
-  author={Wang, Libo and Li, Rui and Zhang, Ce and Fang, Shenghui and Duan, Chenxi and Meng, Xiaoliang and Atkinson, Peter M},
-  journal={ISPRS Journal of Photogrammetry and Remote Sensing},
-  volume={190},
-  pages={196--214},
-  year={2022},
-  publisher={Elsevier}
-}
+[12] L. Wang, R. Li, C. Zhang, S. Fang, C. Duan, X. Meng, and P. M. Atkinson, “UNetFormer: A UNet-like transformer for efficient semantic segmentation of remote sensing urban scene imagery,” ISPRS Journal of Photogrammetry and Remote Sensing, vol. 190, pp. 196–214, 2022.
 
-@inproceedings{chen2018encoder,
-  title={Encoder-decoder with atrous separable convolution for semantic image segmentation},
-  author={Chen, Liang-Chieh and Zhu, Yukun and Papandreou, George and Schroff, Florian and Adam, Hartwig},
-  booktitle={Proceedings of the European conference on computer vision (ECCV)},
-  pages={801--818},
-  year={2018}
-}
+[13] L.-C. Chen, Y. Zhu, G. Papandreou, F. Schroff, and H. Adam, “Encoder-decoder with atrous separable convolution for semantic image segmentation,” in Proceedings of the European Conference on Computer Vision (ECCV), pp. 801–818, 2018.
 
-@article{ma2024rs,
-  title={Rs 3 mamba: Visual state space model for remote sensing image semantic segmentation},
-  author={Ma, Xianping and Zhang, Xiaokang and Pun, Man-On},
-  journal={IEEE Geoscience and Remote Sensing Letters},
-  volume={21},
-  pages={1--5},
-  year={2024},
-  publisher={IEEE}
-}
+[14] X. Ma, X. Zhang, and M.-O. Pun, “RS3Mamba: Visual state space model for remote sensing image semantic segmentation,” IEEE Geoscience and Remote Sensing Letters, vol. 21, pp. 1–5, 2024.
 
-@article{rottensteiner2012isprs,
-  title={The ISPRS benchmark on urban object classification and 3D building reconstruction},
-  author={Rottensteiner, Franz and Sohn, Gunho and Jung, Jaewook and Gerke, Markus and Baillard, Caroline and Benitez, Sebastien and Breitkopf, Uwe},
-  year={2012},
-  publisher={G{\"o}ttingen: Copernicus GmbH}
-}
-
-
-
-
-AI翻译
-
+[15] F. Rottensteiner, G. Sohn, J. Jung, M. Gerke, C. Baillard, S. Benitez, and U. Breitkopf, “The ISPRS benchmark on urban object classification and 3D building reconstruction,” ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, vol. I-3, pp. 293–298, 2012.
