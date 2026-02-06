@@ -1,8 +1,142 @@
 Dear Editors and Reviewers,
-Thank you for your letter and for the reviewer’s comments concerning our manuscript
-entitled “Splitting methods for diﬀerential approximations of the radiative transfer equation”.
-Those comments are all valuable and very helpful for revising and improving our paper, as well
-as the important guiding signiﬁcance to our researches. We have studied comments carefully
-and revised our manuscript point-by-point.
-We appreciate for Editors/Reviewers’ warm work earnestly, and hope that the correction
-will meet with approval. The responds to the reviewer’s comments are as following:
+
+Thank you for your letter and for the reviewers' comments concerning our manuscript entitled "From Attention Stacking to Architecture Rethinking: Dual-Path Decoupling for Efficient Remote Sensing Image Segmentation".
+
+These comments are all valuable and very helpful for revising and improving our paper, as well as providing important guidance for our research. We have studied the comments carefully and revised our manuscript accordingly.
+
+We appreciate the Editors' and Reviewers' efforts, and hope that the revisions will meet with approval. The responses to the reviewers' comments are as follows:
+Response to Reviewer #1
+Comment 1: Provide a mathematical workflow of the whole model (input → transformations → output), and clarify how 
+W
+e
+f
+f
+W 
+eff
+​
+  is applied and what goes into APFG, up to the loss.
+
+Response: We agree and have substantially revised Section II to improve end-to-end explainability. Specifically, at the beginning of Section II (Methodology) we now provide a concise but complete mathematical workflow that traces the data flow from the input image to encoder features, MSK fusion outputs, decoder recursion, prediction head, and the training objective with deep supervision. In Section II-A, we explicitly state that DVSS decouples global and local processing, where the local branch applies ECA followed by a PMC-modulated convolution using 
+W
+e
+f
+f
+W 
+eff
+​
+ , which is applied to convolve the feature 
+(
+E
+C
+A
+(
+F
+s
+)
++
+F
+s
+)
+(ECA(F 
+s
+​
+ )+F 
+s
+​
+ ), producing the local path output 
+F
+l
+F 
+l
+​
+ . APFG then fuses the global feature 
+F
+s
+F 
+s
+​
+  and local feature 
+F
+l
+F 
+l
+​
+ . These revisions remove the previously identified "disconnect" and make the overall workflow fully traceable.
+
+Comment 2: Why would the network not learn 
+W
+e
+f
+f
+W 
+eff
+​
+  by itself with sufficient data?
+
+Response: We have expanded the motivation of PMC in Section II-A from an optimization/inductive-bias perspective. We explain that standard convolutions exhibit a center-dominance tendency that is reinforced by stable gradient accumulation at the kernel center due to overlapping receptive fields. Although a network can, in principle, represent non-center-dominant kernels, conventional gradient-based optimization does not explicitly encourage such behavior and often converges to center-reliant solutions. PMC introduces a lightweight, learnable inhibitory prior in the parameter domain to counteract this bias and facilitate detail extraction. Our ablation study (Table IV, Config F) provides empirical support: removing PMC causes a significant performance drop (46.08% vs. 53.21% mIoU), suggesting that the proposed PMC prior is important for achieving strong performance under our training setting.
+
+Comment 3: Justify the choice of SiLU vs. GeLU in SS2D and APFG.
+
+Response: We clarified this in Section II-A. We adopt SiLU in SS2D for consistency with the original VMamba design, while using GeLU in APFG to provide smoother gradients during fusion of heterogeneous global/local features.
+
+Comment 4: Fig. 3 (MSK) does not align with the explanation (pooling details, concatenation/addition, convolution type, and "efficient compared to what").
+
+Response: We revised Section II-B to explicitly state that MSK uses both average and max pooling along the channel axis, concatenates their outputs, and generates a spatial attention map via a 
+7
+×
+7
+7×7 convolution. We also updated Fig. 2(c) to explicitly depict AvgPool/MaxPool and concatenation. We clarified that the 
+3
+×
+3
+/
+5
+×
+5
+/
+7
+×
+7
+3×3/5×5/7×7 operators are regular convolutions applied in a compressed (C/4) feature space, which is the key reason for efficiency. Finally, we explicitly state that the efficiency claim is relative to the baseline MSAA, and we provide a quantitative parameter comparison (98 vs. 512 when 
+C
+′
+=
+32
+C 
+′
+ =32).
+
+Comment 5: Clarify the paragraph about LDC (whether it refers to SS2D or PMC).
+
+Response: We revised the text to make it explicit that PMC is inspired by LDConv (Linear Deformable Convolution) and operates in the parameter domain rather than the spatial domain, removing any ambiguity.
+
+Comment 6: Ensure rectangle sizes in qualitative figures are consistent.
+
+Response: We have adjusted the qualitative figures so that the zoomed-in rectangles have consistent sizes across methods and datasets (Figs. 3–5 in the revised manuscript).
+
+Comment 7: Table IV is difficult to understand; use tick/cross or clearer component listing.
+
+Response: We have reformatted Table IV into a clearer ablation table with explicit indicators for key components (Dual-Path, APFG, Fusion type), making each configuration immediately interpretable.
+
+Comment 8: Explain what ECA is and why it is relevant.
+
+Response: We added a brief explanation in Section II-A describing ECA as a lightweight channel-attention mechanism using 1D convolution to model cross-channel dependencies, and clarified its role in recalibrating features before PMC to enhance local-detail extraction.
+
+Comment 9: Provide citations for the two ISPRS datasets.
+
+Response: We added the official ISPRS benchmark citation for the Potsdam and Vaihingen datasets in Section III-A and included the corresponding reference entry.
+
+Response to Reviewer #2
+Comment 1: Expand the explanation of PMC behavior (why center suppression helps detail extraction).
+
+Response: We expanded the explanation in Section II-A by providing an intuitive description: suppressing the kernel center encourages gathering information from neighboring positions, improving sensitivity to edges and fine textures, which benefits local-detail refinement.
+
+Comment 2: Compare with additional recent Mamba/SSM-based segmentation architectures.
+
+Response: We added comparisons with an additional recent Mamba-based remote sensing segmentation method (RS3Mamba) in the experimental tables (Tables II, III, and V). We also clarified the evaluation setting and provided the corresponding citation. This contextualizes DP-UNet's performance within the growing family of SSM/Mamba-driven segmentation models.
+
+Comment 3: Discuss limitations.
+
+Response: We added a limitations discussion in Section IV (Conclusion). The dual-path design increases architectural complexity and branch interactions, which may require more careful optimization and regularization on very small datasets, potentially increasing the risk of overfitting. Future work will extend the evaluation to a broader range of sensor types and application scenarios.
+
+We sincerely thank both reviewers for their valuable feedback, which has significantly improved the clarity and completeness of our manuscript.
